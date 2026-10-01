@@ -1,38 +1,31 @@
 #pragma once
 
-#include <fstream>
-#include <string>
-
-
-struct ScoreData
-{
-	int score;
-	std::string name;
-
-	ScoreData(int i, const std::string& s)
-		: score(i), name(s) { }
-};
-
-// リストのノード形
-struct Node
-{
-	ScoreData scoreData;
-	Node* prev;
-	Node* next;
-
-	Node(const ScoreData& data)
-		: scoreData(data), prev(nullptr), next(nullptr) { }
-};
+#include "Node.h"
+#include "Iterator.h"
+#include "ConstIterator.h"
 
 // 双方向リスト
 struct DoublyLinkedList
 {
+private:
 	Node* head;
 	Node* tail;
+	int count;
+	int size;
 
+public:
 	DoublyLinkedList();
 	~DoublyLinkedList();
 
-	void pushBack(const std::string& val);
-	void printForward();
+	int GetSize();
+
+	void Insert(Iterator position, const ScoreData& data);
+	void Delete(Iterator position);
+
+	Iterator Begin();
+	ConstIterator cBegin();
+	Iterator End();
+	ConstIterator cEnd();
+
+	void PrintForward();
 };

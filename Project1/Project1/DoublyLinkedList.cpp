@@ -1,26 +1,11 @@
 #include "DoublyLinkedList.h"
 
 
-// --- Helpers ---
-
-// Find where the space between the score and name is.
-static int strToInt(const std::string& s, size_t& endPos)
-{
-	int result = 0;
-	endPos = 0;
-
-	while (endPos < s.size() && s[endPos] >= '0' && s[endPos] <= '9')
-	{
-		result = result * 10 + (s[endPos] - '0');
-		endPos++;
-	}
-	return result;
-}
-
 DoublyLinkedList::DoublyLinkedList()
 {
 	head = nullptr;
 	tail = nullptr;
+	count = 0;
 }
 
 DoublyLinkedList::~DoublyLinkedList()
@@ -34,31 +19,29 @@ DoublyLinkedList::~DoublyLinkedList()
 	}
 }
 
-void DoublyLinkedList::pushBack(const std::string& val)
+// --- Size ---
+
+int DoublyLinkedList::GetSize()
 {
-	size_t space = 0;
-	int score = strToInt(val, space);
-
-	if (space >= val.size() || val[space] != '\t') return;
-
-	std::string name = val.substr(space + 1);
-
-	ScoreData data(score, name);
-	Node* newNode = new Node(data);
-
-	if (tail == nullptr)
-	{
-		head = tail = newNode;
-	}
-	else
-	{
-		newNode->prev = tail;
-		tail->next	  = newNode;
-		tail		  = newNode;
-	}
+	return size;
 }
 
-void DoublyLinkedList::printForward()
+// --- Node Management ---
+
+void DoublyLinkedList::Insert(Iterator position, const ScoreData& data) { }
+
+void DoublyLinkedList::Delete(Iterator position) { }
+
+// --- Iterator/ConstIterator ---
+
+Iterator DoublyLinkedList::Begin() { return Iterator(head); }
+ConstIterator DoublyLinkedList::cBegin() { return ConstIterator(head); }
+Iterator DoublyLinkedList::End() { return Iterator(nullptr); }
+ConstIterator DoublyLinkedList::cEnd() { return ConstIterator(nullptr); }
+
+// --- Display ---
+
+void DoublyLinkedList::PrintForward()
 {
 	for (Node* cur = head; cur; cur = cur->next)
 		printf("%d\t%s\n", cur->scoreData.score, cur->scoreData.name.c_str());

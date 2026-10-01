@@ -127,7 +127,11 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConstIterator.h" />
     <ClInclude Include="DoublyLinkedList.h" />
+    <ClInclude Include="Iterator.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="ScoreData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
