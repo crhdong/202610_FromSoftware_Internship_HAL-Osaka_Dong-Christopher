@@ -1,6 +1,22 @@
 #include "DoublyLinkedList.h"
 
 
+// --- Helpers ---
+
+// Find where the space between the score and name is.
+static int strToInt(const std::string& s, size_t& endPos)
+{
+	int result = 0;
+	endPos = 0;
+
+	while (endPos < s.size() && s[endPos] >= '0' && s[endPos] <= '9')
+	{
+		result = result * 10 + (s[endPos] - '0');
+		endPos++;
+	}
+	return result;
+}
+
 DoublyLinkedList::DoublyLinkedList()
 {
 	head = nullptr;
@@ -20,7 +36,16 @@ DoublyLinkedList::~DoublyLinkedList()
 
 void DoublyLinkedList::pushBack(const std::string& val)
 {
-	Node* newNode = new Node(val);
+	size_t space = 0;
+	int score = strToInt(val, space);
+
+	if (space >= val.size() || val[space] != '\t') return;
+
+	std::string name = val.substr(space + 1);
+
+	ScoreData data(score, name);
+	Node* newNode = new Node(data);
+
 	if (tail == nullptr)
 	{
 		head = tail = newNode;
@@ -36,8 +61,5 @@ void DoublyLinkedList::pushBack(const std::string& val)
 void DoublyLinkedList::printForward()
 {
 	for (Node* cur = head; cur; cur = cur->next)
-	{ 
-		const char* result = cur->data.c_str();
-		printf("%s\n", result);
-	}	
+		printf("%d\t%s\n", cur->scoreData.score, cur->scoreData.name.c_str());
 }
