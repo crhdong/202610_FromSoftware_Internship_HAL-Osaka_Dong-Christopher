@@ -8,5 +8,13 @@ public:
 	Iterator(Node* node)
 		: ConstIterator(node) { }
 
-	ScoreData& operator*() { }
+	ScoreData& operator*() 
+	{ 
+		return const_cast<Node*>(current)->scoreData;
+	}
+
+	Node* GetCurrent()
+	{
+		return const_cast<Node*>(current);
+	}
 };

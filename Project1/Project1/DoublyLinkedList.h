@@ -11,13 +11,12 @@ private:
 	Node* head;
 	Node* tail;
 	int count;
-	int size;
 
 public:
 	DoublyLinkedList();
 	~DoublyLinkedList();
 
-	int GetSize();
+	int GetSize() const;
 
 	void Insert(Iterator position, const ScoreData& data);
 	void Delete(Iterator position);

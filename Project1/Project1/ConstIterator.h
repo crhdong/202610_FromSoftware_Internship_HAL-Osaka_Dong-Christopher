@@ -18,6 +18,13 @@ public:
 	ConstIterator(const ConstIterator& other)
 		: current(other.current) { }
 
+	// --- Get ---
+
+	const Node* GetCurrent() const
+	{
+		return current;
+	}
+
 	// --- Operators ---
 
 	ConstIterator& operator++()
