@@ -131,6 +131,8 @@
     <ClInclude Include="DoublyLinkedList.h" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="ReverseConstIterator.h" />
+    <ClInclude Include="ReverseIterator.h" />
     <ClInclude Include="ScoreData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

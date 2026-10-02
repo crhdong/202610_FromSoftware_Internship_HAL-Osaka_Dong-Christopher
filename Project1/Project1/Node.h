@@ -4,6 +4,7 @@
 
 struct Node
 {
+protected:
 	ScoreData scoreData;
 	Node* prev;
 	Node* next;
@@ -12,23 +13,43 @@ public:
 	Node(const ScoreData& data)
 		: scoreData(data), prev(nullptr), next(nullptr) { }
 
-	int GetScore()
+	ScoreData& GetData()
 	{
-		return scoreData.score;
+		return scoreData;
 	}
 
-	int GetScore() const
+	const ScoreData& GetData() const
 	{
-		return scoreData.score;
+		return scoreData;
 	}
 
-	std::string GetName()
+	Node* GetPrev()
 	{
-		return scoreData.name;
+		return prev;
 	}
 
-	std::string GetName() const
+	Node* GetPrev() const
 	{
-		return scoreData.name;
+		return prev;
+	}
+
+	Node* GetNext()
+	{
+		return next;
+	}
+
+	Node* GetNext() const
+	{
+		return next;
+	}
+
+	void SetPrev(Node* node)
+	{
+		prev = node;
+	}
+
+	void SetNext(Node* node)
+	{
+		next = node;
 	}
 };

@@ -25,40 +25,33 @@ public:
 		return current;
 	}
 
-	Node* GetNext() const
+	Node* GetNextNode() const
 	{
-		return current->next;
+		return current->GetNext();
 	}
 
-	Node* GetPrev() const
+	Node* GetPrevNode() const
 	{
-		return current->prev;
-	}
-
-	// --- Get ScoreData ---
-
-	ScoreData GetScoreData(Node* node)
-	{
-		return node->scoreData;
+		return current->GetPrev();
 	}
 
 	// --- Operators ---
 
 	ConstIterator& operator++()
 	{
-		current = current->next;
+		current = current->GetNext();
 		return *this;
 	}
 
 	ConstIterator& operator--()
 	{
-		current = current->prev;
+		current = current->GetPrev();
 		return *this;
 	}
 
 	const ScoreData& operator*()
 	{
-		return current->scoreData;
+		return current->GetData();
 	}
 
 	ConstIterator& operator=(const ConstIterator& other)

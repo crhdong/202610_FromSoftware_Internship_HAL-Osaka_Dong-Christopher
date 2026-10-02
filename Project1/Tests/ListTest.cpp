@@ -75,7 +75,7 @@ TEST(InsertionTest, EmptyInsertion)
 	DoublyLinkedList list;
 	ScoreData data1(1, "pie");
 	list.Insert(list.End(), data1);
-	EXPECT_EQ(list.GetSize() > 0, true);
+	EXPECT_EQ(list.GetSize(), 1);
 }
 
 TEST(InsertionTest, OccupiedHeadInsertion)
@@ -85,7 +85,7 @@ TEST(InsertionTest, OccupiedHeadInsertion)
 	ScoreData data2(2, "cake");
 	list.Insert(list.Begin(), data1);
 	list.Insert(list.Begin(), data2);
-	EXPECT_EQ(list.cBegin().GetNext()->GetName() == "pie", true);
+	EXPECT_EQ(list.cBegin().GetCurrent()->GetData().GetName(), "cake");
 }
 
 TEST(InsertionTest, OccupiedTailInsertion)
@@ -95,7 +95,7 @@ TEST(InsertionTest, OccupiedTailInsertion)
 	ScoreData data2(2, "cake");
 	list.Insert(list.End(), data1);
 	list.Insert(list.End(), data2);
-	EXPECT_EQ(list.cBegin().GetCurrent()->GetName() == "pie", true);
+	EXPECT_EQ(list.cBegin().GetCurrent()->GetData().GetName(), "pie");
 }
 
 TEST(InsertionTest, OccupiedMidInsertion)
@@ -107,7 +107,7 @@ TEST(InsertionTest, OccupiedMidInsertion)
 	list.Insert(list.Begin(), data1);
 	list.Insert(list.End(), data2);
 	list.Insert(list.FindByName("cake"), data3);
-	EXPECT_EQ(list.FindByName("macaron").GetNext()->GetName() == "cake", true);
+	EXPECT_EQ(list.FindByName("macaron").GetNextNode()->GetData().GetName(), "cake");
 }
 
 TEST(InsertionTest, ConstIteratorInsertion)
@@ -117,7 +117,7 @@ TEST(InsertionTest, ConstIteratorInsertion)
 	ScoreData data2(2, "cake");
 	list.Insert(list.cBegin(), data1);
 	list.Insert(list.cBegin(), data2);
-	EXPECT_EQ(list.cBegin().GetNext()->GetName() == "pie", true);
+	EXPECT_EQ(list.cBegin().GetNextNode()->GetData().GetName(), "pie");
 }
 
 // --- Data Deletion ---
@@ -127,7 +127,7 @@ TEST(DeletionTest, EmptyDeletion)
 	DoublyLinkedList list;
 	list.Delete(list.Begin());
 	list.Delete(list.End());
-	EXPECT_EQ(list.GetSize() != 0, false);
+	EXPECT_FALSE(list.GetSize() != 0);
 }
 
 TEST(DeletionTest, HeadDeletion)
@@ -138,7 +138,7 @@ TEST(DeletionTest, HeadDeletion)
 	list.Insert(list.Begin(), data1);
 	list.Insert(list.Begin(), data2);
 	list.Delete(list.Begin());
-	EXPECT_EQ(list.cBegin().GetCurrent()->GetName() == "pie", true);
+	EXPECT_EQ(list.cBegin().GetCurrent()->GetData().GetName(), "pie");
 }
 
 TEST(DeletionTest, TailDeletion)
@@ -146,8 +146,8 @@ TEST(DeletionTest, TailDeletion)
 	DoublyLinkedList list;
 	ScoreData data1(1, "pie");
 	list.Insert(list.Begin(), data1);
-	list.Delete(list.End());
-	EXPECT_EQ(list.GetSize() != 0, true);
+	list.Delete(list.Last());
+	EXPECT_EQ(list.GetSize(), 0);
 }
 
 TEST(DeletionTest, MidDeletion)
@@ -160,7 +160,7 @@ TEST(DeletionTest, MidDeletion)
 	list.Insert(list.Begin(), data2);
 	list.Insert(list.Begin(), data3);
 	list.Delete(list.FindByName("pie"));
-	EXPECT_EQ(list.cLast().GetCurrent()->GetName() == "cake", true);
+	EXPECT_EQ(list.cLast().GetCurrent()->GetData().GetName(), "cake");
 }
 
 TEST(DeletionTest, ConstIteratorDeletion)
@@ -174,7 +174,7 @@ TEST(DeletionTest, ConstIteratorDeletion)
 	list.Insert(list.Begin(), data3);
 	list.Delete(list.cBegin());
 	list.Delete(list.cBegin());
-	EXPECT_EQ(list.cBegin().GetCurrent()->GetName() == "pie", true);
+	EXPECT_EQ(list.cBegin().GetCurrent()->GetData().GetName(), "pie");
 }
 
 TEST(DeletionTest, ImproperIteratorDeletion)
@@ -183,7 +183,7 @@ TEST(DeletionTest, ImproperIteratorDeletion)
 	ScoreData data1(1, "pie");
 	list.Insert(list.Begin(), data1);
 	list.Delete(list.cEnd());
-	EXPECT_EQ(list.CheckForName("pie"), true);
+	EXPECT_TRUE(list.CheckForName("pie"));
 }
 
 // --- Head Iterator ---
@@ -191,7 +191,10 @@ TEST(DeletionTest, ImproperIteratorDeletion)
 TEST(HeadIteratorTest, EmptyList)
 {
 	DoublyLinkedList list;
-	list.cBegin().GetCurrent();
+	Iterator it = list.Begin().GetCurrent();
+
+	EXPECT_EQ((*it).GetScore(), 0);
+	EXPECT_EQ((*it).GetName(), "");
 }
 
 TEST(HeadIteratorTest, SingleEntry)
@@ -201,8 +204,8 @@ TEST(HeadIteratorTest, SingleEntry)
 	list.Insert(list.End(), data1);
 	Iterator it = list.Begin();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
 TEST(HeadIteratorTest, DoubleEntry)
@@ -214,8 +217,8 @@ TEST(HeadIteratorTest, DoubleEntry)
 	list.Insert(list.End(), data2);
 	Iterator it = list.Begin();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
 TEST(HeadIteratorTest, EntryAndCall)
@@ -227,20 +230,20 @@ TEST(HeadIteratorTest, EntryAndCall)
 	list.Insert(list.Begin(), data1);
 	Iterator it = list.Begin();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 
 	list.Insert(list.End(), data2);
 	it = list.Begin();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 
 	list.Insert(list.FindByName("cake"), data3);
 	it = list.Begin();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
 TEST(HeadIteratorTest, DeleteAndCall)
@@ -258,29 +261,29 @@ TEST(HeadIteratorTest, DeleteAndCall)
 
 	Iterator it = list.Begin();
 
-	EXPECT_EQ((*it).score, data4.score);
-	EXPECT_EQ((*it).name, data4.name);
+	EXPECT_EQ((*it).GetScore(), data4.GetScore());
+	EXPECT_EQ((*it).GetName(), data4.GetName());
 
 	// Head 3 - 2 - 1 Tail
 	list.Delete(list.Begin());
 	it = list.Begin();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 
 	// Head 3 - 2 Tail
 	list.Delete(list.End());
 	it = list.Begin();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 
 	// Head 3 Tail
 	list.Delete(list.FindByName("cake"));
 	it = list.Begin();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 }
 
 // --- Head ConstIterator ---
@@ -288,7 +291,10 @@ TEST(HeadIteratorTest, DeleteAndCall)
 TEST(HeadConstIteratorTest, EmptyList)
 {
 	DoublyLinkedList list;
-	list.cBegin().GetCurrent();
+	ConstIterator it = list.cBegin().GetCurrent();
+
+	EXPECT_EQ((*it).GetScore(), 0);
+	EXPECT_EQ((*it).GetName(), "");
 }
 
 TEST(HeadConstIteratorTest, SingleEntry)
@@ -298,8 +304,8 @@ TEST(HeadConstIteratorTest, SingleEntry)
 	list.Insert(list.cEnd(), data1);
 	ConstIterator it = list.cBegin();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
 TEST(HeadConstIteratorTest, DoubleEntry)
@@ -311,8 +317,8 @@ TEST(HeadConstIteratorTest, DoubleEntry)
 	list.Insert(list.cEnd(), data2);
 	ConstIterator it = list.cBegin();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
 TEST(HeadConstIteratorTest, EntryAndCall)
@@ -324,20 +330,20 @@ TEST(HeadConstIteratorTest, EntryAndCall)
 	list.Insert(list.cBegin(), data1);
 	ConstIterator it = list.cBegin();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 
 	list.Insert(list.cEnd(), data2);
 	it = list.cBegin();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 
 	list.Insert(list.FindByName("cake"), data3);
 	it = list.cBegin();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
 TEST(HeadConstIteratorTest, DeleteAndCall)
@@ -355,29 +361,29 @@ TEST(HeadConstIteratorTest, DeleteAndCall)
 
 	ConstIterator it = list.cBegin();
 
-	EXPECT_EQ((*it).score, data4.score);
-	EXPECT_EQ((*it).name, data4.name);
+	EXPECT_EQ((*it).GetScore(), data4.GetScore());
+	EXPECT_EQ((*it).GetName(), data4.GetName());
 
 	// Head 3 - 2 - 1 Tail
 	list.Delete(list.cBegin());
 	it = list.cBegin();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 
 	// Head 3 - 2 Tail
 	list.Delete(list.cEnd());
 	it = list.cBegin();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 
 	// Head 3 Tail
 	list.Delete(list.FindByName("cake"));
 	it = list.cBegin();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 }
 
 // --- End Iterator ---
@@ -385,7 +391,10 @@ TEST(HeadConstIteratorTest, DeleteAndCall)
 TEST(EndIteratorTest, EmptyList)
 {
 	DoublyLinkedList list;
-	list.cEnd().GetCurrent();
+	Iterator it = list.End().GetCurrent();
+
+	EXPECT_EQ((*it).GetScore(), 0);
+	EXPECT_EQ((*it).GetName(), "");
 }
 
 TEST(EndIteratorTest, SingleEntry)
@@ -395,8 +404,8 @@ TEST(EndIteratorTest, SingleEntry)
 	list.Insert(list.Begin(), data1);
 	Iterator it = list.Last();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
 TEST(EndIteratorTest, DoubleEntry)
@@ -408,8 +417,8 @@ TEST(EndIteratorTest, DoubleEntry)
 	list.Insert(list.Begin(), data2);
 	Iterator it = list.Last();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
 TEST(EndIteratorTest, EntryAndCall)
@@ -421,20 +430,20 @@ TEST(EndIteratorTest, EntryAndCall)
 	list.Insert(list.End(), data1);
 	Iterator it = list.Last();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 
 	list.Insert(list.Begin(), data2);
 	it = list.Last();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 
 	list.Insert(list.FindByName("cake"), data3);
 	it = list.Last();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
 TEST(EndIteratorTest, DeleteAndCall)
@@ -452,51 +461,54 @@ TEST(EndIteratorTest, DeleteAndCall)
 
 	Iterator it = list.Last();
 
-	EXPECT_EQ((*it).score, data4.score);
-	EXPECT_EQ((*it).name, data4.name);
+	EXPECT_EQ((*it).GetScore(), data4.GetScore());
+	EXPECT_EQ((*it).GetName(), data4.GetName());
 
 	// Head 1 - 2 - 3 Tail
 	list.Delete(list.Last());
 	it = list.Last();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 
 	// Head 2 - 3 Tail
 	list.Delete(list.Begin());
 	it = list.Last();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 
 	// Head 2 Tail
 	list.Delete(list.FindByName("cake"));
 	it = list.Last();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 }
 
 // --- End ConstIterator ---
 
-TEST(EndIteratorTest, EmptyList)
+TEST(EndConstIteratorTest, EmptyList)
 {
 	DoublyLinkedList list;
-	list.cEnd().GetCurrent();
+	ConstIterator it = list.cEnd().GetCurrent();
+
+	EXPECT_EQ((*it).GetScore(), 0);
+	EXPECT_EQ((*it).GetName(), "");
 }
 
-TEST(EndIteratorTest, SingleEntry)
+TEST(EndConstIteratorTest, SingleEntry)
 {
 	DoublyLinkedList list;
 	ScoreData data1(1, "pie");
 	list.Insert(list.cBegin(), data1);
 	ConstIterator it = list.cLast();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
-TEST(EndIteratorTest, DoubleEntry)
+TEST(EndConstIteratorTest, DoubleEntry)
 {
 	DoublyLinkedList list;
 	ScoreData data1(1, "pie");
@@ -505,11 +517,11 @@ TEST(EndIteratorTest, DoubleEntry)
 	list.Insert(list.cBegin(), data2);
 	ConstIterator it = list.cLast();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
-TEST(EndIteratorTest, EntryAndCall)
+TEST(EndConstIteratorTest, EntryAndCall)
 {
 	DoublyLinkedList list;
 	ScoreData data1(1, "pie");
@@ -518,23 +530,23 @@ TEST(EndIteratorTest, EntryAndCall)
 	list.Insert(list.cEnd(), data1);
 	ConstIterator it = list.cLast();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 
 	list.Insert(list.cBegin(), data2);
 	it = list.cLast();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 
 	list.Insert(list.FindByName("cake"), data3);
 	it = list.cLast();
 
-	EXPECT_EQ((*it).score, data1.score);
-	EXPECT_EQ((*it).name, data1.name);
+	EXPECT_EQ((*it).GetScore(), data1.GetScore());
+	EXPECT_EQ((*it).GetName(), data1.GetName());
 }
 
-TEST(EndIteratorTest, DeleteAndCall)
+TEST(EndConstIteratorTest, DeleteAndCall)
 {
 	DoublyLinkedList list;
 	// Head 1 - 2 - 3 - 4 Tail
@@ -549,27 +561,27 @@ TEST(EndIteratorTest, DeleteAndCall)
 
 	ConstIterator it = list.cLast();
 
-	EXPECT_EQ((*it).score, data4.score);
-	EXPECT_EQ((*it).name, data4.name);
+	EXPECT_EQ((*it).GetScore(), data4.GetScore());
+	EXPECT_EQ((*it).GetName(), data4.GetName());
 
 	// Head 1 - 2 - 3 Tail
 	list.Delete(list.cLast());
 	it = list.cLast();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 
 	// Head 2 - 3 Tail
 	list.Delete(list.cBegin());
 	it = list.cLast();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 
 	// Head 2 Tail
 	list.Delete(list.FindByName("cake"));
 	it = list.cLast();
 
-	EXPECT_EQ((*it).score, data3.score);
-	EXPECT_EQ((*it).name, data3.name);
+	EXPECT_EQ((*it).GetScore(), data3.GetScore());
+	EXPECT_EQ((*it).GetName(), data3.GetName());
 }

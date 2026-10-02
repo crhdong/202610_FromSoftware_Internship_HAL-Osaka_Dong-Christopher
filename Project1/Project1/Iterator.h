@@ -10,7 +10,7 @@ public:
 
 	ScoreData& operator*() 
 	{ 
-		return const_cast<Node*>(current)->scoreData;
+		return const_cast<Node*>(current)->GetData();
 	}
 
 	Node* GetCurrent()
@@ -18,13 +18,13 @@ public:
 		return const_cast<Node*>(current);
 	}
 
-	Node* GetNext()
+	Node* GetNextNode()
 	{
-		return const_cast<Node*>(current->next);
+		return current->GetNext();
 	}
 
-	Node* GetPrev()
+	Node* GetPrevNode()
 	{
-		return const_cast<Node*>(current->prev);
+		return current->GetPrev();
 	}
 };

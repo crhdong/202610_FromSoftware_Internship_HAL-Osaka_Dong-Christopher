@@ -38,5 +38,11 @@
     <ClInclude Include="Iterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ReverseIterator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReverseConstIterator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -44,7 +44,7 @@ void main()
 	file.close();
 
 	for (ConstIterator it = scoreList.cBegin(); it != scoreList.cEnd(); ++it)
-		printf("%d\t%s\n", (*it).score, (*it).name.c_str());
+		printf("%d\t%s\n", (*it).GetScore(), (*it).GetName().c_str());
 
 	return;
 }
