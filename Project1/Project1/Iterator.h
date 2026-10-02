@@ -17,4 +17,14 @@ public:
 	{
 		return const_cast<Node*>(current);
 	}
+
+	Node* GetNext()
+	{
+		return const_cast<Node*>(current->next);
+	}
+
+	Node* GetPrev()
+	{
+		return const_cast<Node*>(current->prev);
+	}
 };

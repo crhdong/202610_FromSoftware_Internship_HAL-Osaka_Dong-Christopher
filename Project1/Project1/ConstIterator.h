@@ -18,11 +18,28 @@ public:
 	ConstIterator(const ConstIterator& other)
 		: current(other.current) { }
 
-	// --- Get ---
+	// --- Get Node ---
 
 	const Node* GetCurrent() const
 	{
 		return current;
+	}
+
+	Node* GetNext() const
+	{
+		return current->next;
+	}
+
+	Node* GetPrev() const
+	{
+		return current->prev;
+	}
+
+	// --- Get ScoreData ---
+
+	ScoreData GetScoreData(Node* node)
+	{
+		return node->scoreData;
 	}
 
 	// --- Operators ---
@@ -52,11 +69,11 @@ public:
 
 	bool operator==(const ConstIterator& other) const
 	{
-		return true;
+		return current == other.current;
 	}
 
 	bool operator!=(const ConstIterator& other) const
 	{
-		return true;
+		return current != other.current;
 	}
 };
