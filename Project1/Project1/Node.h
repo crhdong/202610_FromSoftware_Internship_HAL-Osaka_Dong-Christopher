@@ -27,29 +27,50 @@ public:
 	{
 		return prev;
 	}
-
 	Node* GetPrev() const
 	{
 		return prev;
+	}
+	Node* GetRPrev()
+	{
+		return next;
+	}
+	Node* GetRPrev() const
+	{
+		return next;
 	}
 
 	Node* GetNext()
 	{
 		return next;
 	}
-
 	Node* GetNext() const
 	{
 		return next;
+	}
+	Node* GetRNext()
+	{
+		return prev;
+	}
+	Node* GetRNext() const
+	{
+		return prev;
 	}
 
 	void SetPrev(Node* node)
 	{
 		prev = node;
 	}
-
+	void SetRPrev(Node* node)
+	{
+		next = node;
+	}
 	void SetNext(Node* node)
 	{
 		next = node;
+	}
+	void SetRNext(Node* node)
+	{
+		prev = node;
 	}
 };

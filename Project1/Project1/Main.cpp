@@ -43,8 +43,7 @@ void main()
 
 	file.close();
 
-	for (ConstIterator it = scoreList.cBegin(); it != scoreList.cEnd(); ++it)
-		printf("%d\t%s\n", (*it).GetScore(), (*it).GetName().c_str());
+	scoreList.PrintForward();
 
 	return;
 }

@@ -52,12 +52,17 @@ public:
 	// スコアで探す
 	Iterator FindByScore(int score);
 	ConstIterator FindByScore(int score) const;
+	ReverseIterator FindByScoreReverse(int score);
+	ReverseConstIterator FindByScoreReverse(int score) const;
 	// 名前で探す
 	Iterator FindByName(const std::string& name);
 	ConstIterator FindByName(const std::string& name) const;
+	ReverseIterator FindByNameReverse(const std::string& name);
+	ReverseConstIterator FindByNameReverse(const std::string& name) const;
 
 	bool CheckForScore(int score);
 	bool CheckForName(const std::string& name);
 
 	void PrintForward();
+	void PrintBackward();
 };

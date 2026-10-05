@@ -19,6 +19,7 @@ public:
 	ConstIterator(const ConstIterator& other)
 		: current(other.current) { }
 
+	// Disallow using iterators for initializing or assignment to ConstIterators
 	ConstIterator(const Iterator&) = delete;
 
 	// --- Get Node ---

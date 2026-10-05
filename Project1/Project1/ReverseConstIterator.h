@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Node.h"
+#include "ConstIterator.h"
 
+class ReverseIterator;
 
 class ReverseConstIterator
 {
@@ -14,6 +16,9 @@ public:
 
 	ReverseConstIterator(const ReverseConstIterator& other)
 		: current(other.current) { }
+
+	// Disallow using regular reverse iterators for initializing or assignment to ConstReverseIterators
+	ReverseConstIterator(const ReverseIterator&) = delete;
 
 	// --- Get Node ---
 
