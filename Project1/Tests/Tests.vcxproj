@@ -101,6 +101,8 @@
     <ClInclude Include="..\Project1\DoublyLinkedList.h" />
     <ClInclude Include="..\Project1\Iterator.h" />
     <ClInclude Include="..\Project1\Node.h" />
+    <ClInclude Include="..\Project1\ReverseConstIterator.h" />
+    <ClInclude Include="..\Project1\ReverseIterator.h" />
     <ClInclude Include="..\Project1\ScoreData.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>

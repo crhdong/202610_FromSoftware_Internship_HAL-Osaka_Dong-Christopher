@@ -24,14 +24,14 @@ public:
 	// ë}ì¸
 	void Insert(Iterator position, const ScoreData& data);
 	void Insert(ConstIterator position, const ScoreData& data);
-	void Insert(ReverseIterator position, const ScoreData& data);
-	void Insert(ReverseConstIterator position, const ScoreData& data);
+	void RInsert(ReverseIterator position, const ScoreData& data);
+	void RInsert(ReverseConstIterator position, const ScoreData& data);
 
 	// âèú
 	void Delete(Iterator position);
 	void Delete(ConstIterator position);
-	void Delete(ReverseIterator position);
-	void Delete(ReverseConstIterator position);
+	void RDelete(ReverseIterator position);
+	void RDelete(ReverseConstIterator position);
 
 	// ç≈èâ
 	Iterator Begin();

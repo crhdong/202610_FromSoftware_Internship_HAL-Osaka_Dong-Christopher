@@ -89,44 +89,44 @@ void DoublyLinkedList::Insert(ConstIterator position, const ScoreData& data)
 	// Empty list insertion
 	if (head == dummy)
 	{
-		newNode->SetRNext(dummy);
-		dummy->SetRPrev(newNode);
+		newNode->SetNext(dummy);
+		dummy->SetPrev(newNode);
 		head = newNode;
 		tail = newNode;
 		count++;
 		return;
 	}
-	// End (Head) insertion
+	// End insertion
 	if (position.GetCurrent() == dummy)
 	{
-		newNode->SetRPrev(head);
-		newNode->SetRNext(dummy);
-		head->SetRNext(newNode);
-		dummy->SetRPrev(newNode);
-		head = newNode;
+		newNode->SetPrev(tail);
+		newNode->SetNext(dummy);
+		tail->SetNext(newNode);
+		dummy->SetPrev(newNode);
+		tail = newNode;
 		count++;
 		return;
 	}
-	// Head (Tail) insertion
-	if (position.GetCurrent() == tail)
+	// Head insertion
+	if (position.GetCurrent() == head)
 	{
-		newNode->SetRNext(tail);
-		tail->SetRPrev(newNode);
-		tail = newNode;
+		newNode->SetNext(head);
+		head->SetPrev(newNode);
+		head = newNode;
 		count++;
 		return;
 	}
 
 	// Somewhere in the middle insertion - no need to handle head/tail
 	Node* currentNode = const_cast<Node*>(position.GetCurrent());
-	newNode->SetRNext(currentNode);
-	newNode->SetRPrev(currentNode->GetRPrev());
-	currentNode->GetRPrev()->SetRNext(newNode);
-	currentNode->SetRPrev(newNode);
+	newNode->SetNext(currentNode);
+	newNode->SetPrev(currentNode->GetPrev());
+	currentNode->GetPrev()->SetNext(newNode);
+	currentNode->SetPrev(newNode);
 	count++;
 	return;
 }
-void DoublyLinkedList::Insert(ReverseIterator position, const ScoreData& data)
+void DoublyLinkedList::RInsert(ReverseIterator position, const ScoreData& data)
 {
 	// Bad data is ILLEGAL
 	if (data.GetScore() < 0) return;
@@ -174,7 +174,7 @@ void DoublyLinkedList::Insert(ReverseIterator position, const ScoreData& data)
 	count++;
 	return;
 }
-void DoublyLinkedList::Insert(ReverseConstIterator position, const ScoreData& data)
+void DoublyLinkedList::RInsert(ReverseConstIterator position, const ScoreData& data)
 {
 	// Bad data is ILLEGAL
 	if (data.GetScore() < 0) return;
@@ -256,40 +256,40 @@ void DoublyLinkedList::Delete(Iterator position)
 	delete target;
 	count--;
 }
-void DoublyLinkedList::Delete(ReverseIterator position) 
-{ 
+void DoublyLinkedList::Delete(ConstIterator position)
+{
 	if (position.GetCurrent() == dummy) return; // 2dumb2die
 	if (position.GetCurrent() == nullptr) return;
-	Node* target = position.GetCurrent();
-	Node* prev = target->GetRPrev();
-	Node* next = target->GetRNext();
+	Node* target = const_cast<Node*>(position.GetCurrent());
+	Node* prev = target->GetPrev();
+	Node* next = target->GetNext();
 
 	if (prev == nullptr && next == dummy) // Only node
 	{
 		head = dummy;
 		tail = dummy;
-		dummy->SetRPrev(nullptr);
+		dummy->SetPrev(nullptr);
 	}
-	else if (prev == nullptr && next != dummy) // Head (Tail) deletion
+	else if (prev == nullptr && next != dummy) // Head deletion
 	{
-		tail = next;
-		next->SetRPrev(nullptr);
+		head = next;
+		next->SetPrev(nullptr);
 	}
-	else if (next == dummy) // Tail (Head) deletion
+	else if (next == dummy) // Tail deletion
 	{
-		head = prev;
-		prev->SetRNext(dummy);
-		dummy->SetRPrev(prev);
+		tail = prev;
+		prev->SetNext(dummy);
+		dummy->SetPrev(prev);
 	}
 	else
 	{
-		prev->SetRNext(next);
-		next->SetRPrev(prev);
+		prev->SetNext(next);
+		next->SetPrev(prev);
 	}
 	delete target;
 	count--;
 }
-void DoublyLinkedList::Delete(ConstIterator position) 
+void DoublyLinkedList::RDelete(ReverseIterator position)
 { 
 	if (position.GetCurrent() == dummy) return; // 2dumb2die
 	if (position.GetCurrent() == nullptr) return;
@@ -322,7 +322,7 @@ void DoublyLinkedList::Delete(ConstIterator position)
 	delete target;
 	count--;
 }
-void DoublyLinkedList::Delete(ReverseConstIterator position) 
+void DoublyLinkedList::RDelete(ReverseConstIterator position) 
 { 
 	if (position.GetCurrent() == dummy) return; // 2dumb2die
 	if (position.GetCurrent() == nullptr) return;
@@ -336,7 +336,7 @@ void DoublyLinkedList::Delete(ReverseConstIterator position)
 		tail = dummy;
 		dummy->SetRPrev(nullptr);
 	}
-	else if (prev == nullptr && next != dummy) // Head (Tail) deletion
+	else if (prev == nullptr && next != head->GetRNext()) // Head (Tail) deletion
 	{
 		head = next;
 		next->SetRPrev(nullptr);
