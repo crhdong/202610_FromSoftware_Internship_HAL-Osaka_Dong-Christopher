@@ -2,6 +2,7 @@
 
 #include "Node.h"
 
+class Iterator;
 
 // コンストイテレータ
 class ConstIterator
@@ -17,6 +18,8 @@ public:
 	// コピーコンストラクタ
 	ConstIterator(const ConstIterator& other)
 		: current(other.current) { }
+
+	ConstIterator(const Iterator&) = delete;
 
 	// --- Get Node ---
 
@@ -43,7 +46,19 @@ public:
 		return *this;
 	}
 
+	ConstIterator& operator++(int)
+	{
+		current = current->GetNext();
+		return *this;
+	}
+
 	ConstIterator& operator--()
+	{
+		current = current->GetPrev();
+		return *this;
+	}
+
+	ConstIterator& operator--(int)
 	{
 		current = current->GetPrev();
 		return *this;

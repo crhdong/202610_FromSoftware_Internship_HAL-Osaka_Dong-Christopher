@@ -47,6 +47,12 @@ public:
 		return *this;
 	}
 
+	ReverseConstIterator& operator++(int)
+	{
+		current = current->GetPrev();
+		return *this;
+	}
+
 	ReverseConstIterator& operator--()
 	{
 		current = current->GetNext();

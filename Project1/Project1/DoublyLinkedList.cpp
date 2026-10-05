@@ -225,7 +225,7 @@ ConstIterator DoublyLinkedList::FindByScore(int score) const
 	while (cur != dummy)
 	{
 		if (cur->GetData().GetScore() == score)
-			return Iterator(cur);
+			return ConstIterator(cur);
 		cur = cur->GetNext();
 	}
 	return cEnd();
@@ -249,7 +249,7 @@ ConstIterator DoublyLinkedList::FindByName(const std::string& name) const
 	while (cur != dummy)
 	{
 		if (cur->GetData().GetName() == name)
-			return Iterator(cur);
+			return ConstIterator(cur);
 		cur = cur->GetNext();
 	}
 	return cEnd();
