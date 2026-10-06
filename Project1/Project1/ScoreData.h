@@ -11,6 +11,7 @@ private:
 
 public:
 
+	// コンストラクタ
 	ScoreData(int i, const std::string& s)
 		: score(i), name(s) { }
 
@@ -34,13 +35,17 @@ public:
 		return name;
 	}
 
+	// 不良なスコアを書けない
 	void WriteScore(int newScore)
 	{
+		if (score < 0) return;
 		score = newScore;
 	}
 
+	// 不良な名前を書けない
 	void WriteName(const std::string& newName)
 	{
+		if (newName == "") return;
 		name = newName;
 	}
 };

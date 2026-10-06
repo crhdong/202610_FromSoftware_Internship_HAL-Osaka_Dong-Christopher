@@ -1,64 +1,135 @@
 #pragma once
 
-#include "Node.h"
-#include "Iterator.h"
-#include "ConstIterator.h"
-#include "ReverseIterator.h"
-#include "ReverseConstIterator.h"
+#include "ScoreData.h"
 
 // 双方向リスト
-struct DoublyLinkedList
+class DoublyLinkedList
 {
+private:
+	class Node
+	{
+	private:
+		ScoreData scoreData;
+		Node* prev;
+		Node* next;
+	public:
+		Node(const ScoreData& data)
+			: scoreData(data), prev(nullptr), next(nullptr) {
+		}
+		ScoreData& GetData() { return scoreData; }
+		const ScoreData& GetData() const { return scoreData; }
+		Node* GetPrev() { return prev; }
+		const Node* GetPrev() const { return prev; }
+		Node* GetNext() { return next; }
+		const Node* GetNext() const { return next; }
+		void SetPrev(Node* node) { prev = node; }
+		void SetNext(Node* node) { next = node; }
+	};
+public:
+	class Iterator; // ConstIteratorはコンストラクタにIteratorを禁止するため
+	class ConstIterator
+	{
+	protected:
+		const Node* current;
+	public:
+		ConstIterator(const Node* node)
+			: current(node) {
+		}
+		ConstIterator(const ConstIterator& other)
+			: current(other.current) {
+		}
+		ConstIterator(const Iterator&) = delete;
+
+		const Node* GetCurrent() const { return current; }
+		const Node* GetNextNode() const { return current->GetNext(); }
+		const Node* GetPrevNode() const { return current->GetPrev(); }
+
+		ConstIterator& operator++() { current = current->GetNext(); return *this; }
+		ConstIterator& operator++(int) 
+		{ 
+			ConstIterator temp = *this; 
+			current = current->GetNext(); 
+			return temp; }
+		ConstIterator& operator--() { current = current->GetPrev(); return *this; }
+		ConstIterator& operator--(int) 
+		{  
+			ConstIterator temp = *this;
+			current = current->GetPrev(); 
+			return temp; 
+		}
+		const ScoreData& operator*() const { return current->GetData(); }
+		ConstIterator& operator=(const ConstIterator& other) { current = other.current; return *this; }
+		const bool operator==(const ConstIterator& other) const { return current == other.current; }
+		const bool operator!=(const ConstIterator& other) const { return current != other.current; }
+	};
+	class Iterator : public ConstIterator
+	{
+	public:
+		Iterator(Node* node)
+			: ConstIterator(node) {
+		}
+		ScoreData& operator*() { return const_cast<Node*>(current)->GetData(); }
+		Node* GetCurrent() { return const_cast<Node*>(current); }
+		Node* GetNextNode() { return const_cast<Node*>(current)->GetNext(); }
+		Node* GetPrevNode() { return const_cast<Node*>(current)->GetPrev(); }
+
+		Iterator& operator++() { current = current->GetNext(); return *this; }
+		Iterator& operator++(int)
+		{
+			Iterator temp = *this;
+			current = current->GetNext();
+			return temp;
+		}
+		Iterator& operator--() { current = current->GetPrev(); return *this; }
+		Iterator& operator--(int)
+		{
+			Iterator temp = *this;
+			current = current->GetPrev();
+			return temp;
+		}
+	};
 private:
 	Node* head;
 	Node* tail;
-	Node* dummy;
+	Node  dummy;
 	int count;
 
+	void InsertAt(Node* position, const ScoreData& data);
+	void DeleteAt(Node* position);
 public:
 	DoublyLinkedList();
-	~DoublyLinkedList();
+	virtual ~DoublyLinkedList();
 
 	int GetSize() const;
 
 	// 挿入
 	void Insert(Iterator position, const ScoreData& data);
 	void Insert(ConstIterator position, const ScoreData& data);
-	void RInsert(ReverseIterator position, const ScoreData& data);
-	void RInsert(ReverseConstIterator position, const ScoreData& data);
 
 	// 解除
 	void Delete(Iterator position);
 	void Delete(ConstIterator position);
-	void RDelete(ReverseIterator position);
-	void RDelete(ReverseConstIterator position);
 
 	// 最初
 	Iterator Begin();
 	ConstIterator cBegin() const;
-	ReverseIterator rBegin();
-	ReverseConstIterator rcBegin() const;
+
 	// 最後
 	Iterator Last();
 	ConstIterator cLast() const;
-	ReverseIterator rLast();
-	ReverseConstIterator rcLast() const;
+
 	// 最後より+1
 	Iterator End();
 	ConstIterator cEnd() const;
-	ReverseIterator rEnd();
-	ReverseConstIterator rcEnd() const;
+
 
 	// スコアで探す
 	Iterator FindByScore(int score);
 	ConstIterator FindByScore(int score) const;
-	ReverseIterator FindByScoreReverse(int score);
-	ReverseConstIterator FindByScoreReverse(int score) const;
+
 	// 名前で探す
 	Iterator FindByName(const std::string& name);
 	ConstIterator FindByName(const std::string& name) const;
-	ReverseIterator FindByNameReverse(const std::string& name);
-	ReverseConstIterator FindByNameReverse(const std::string& name) const;
 
 	bool CheckForScore(int score);
 	bool CheckForName(const std::string& name);
