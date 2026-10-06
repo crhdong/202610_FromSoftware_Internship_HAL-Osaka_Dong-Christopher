@@ -94,6 +94,7 @@ private:
 	Node  dummy;
 	int count;
 
+	// もしposition == nullptrの場合、return
 	void InsertAt(Node* position, const ScoreData& data);
 	void DeleteAt(Node* position);
 public:
@@ -131,9 +132,11 @@ public:
 	Iterator FindByName(const std::string& name);
 	ConstIterator FindByName(const std::string& name) const;
 
+	// スコア又は名前がリストに存在する
 	bool CheckForScore(int score);
 	bool CheckForName(const std::string& name);
 
+	// 印刷
 	void PrintForward();
 	void PrintBackward();
 };
