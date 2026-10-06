@@ -3,21 +3,20 @@
 #include "ScoreData.h"
 
 // ‘o•ûŒüƒŠƒXƒg
+template <typename T>
 class DoublyLinkedList
 {
 private:
 	struct Node
 	{
 	private:
-		ScoreData scoreData;
+		T data;
 		Node* prev;
 		Node* next;
 	public:
-		Node(const ScoreData& data)
-			: scoreData(data), prev(nullptr), next(nullptr) {
-		}
-		ScoreData& GetData() { return scoreData; }
-		const ScoreData& GetData() const { return scoreData; }
+		Node(const T& entryData);
+		T& GetData() { return data; }
+		const T& GetData() const { return data; }
 		Node* GetPrev() { return prev; }
 		const Node* GetPrev() const { return prev; }
 		Node* GetNext() { return next; }
@@ -32,13 +31,9 @@ public:
 	protected:
 		const Node* current;
 	public:
-		ConstIterator(const Node* node)
-			: current(node) {
-		}
-		ConstIterator(const ConstIterator& other)
-			: current(other.current) {
-		}
-		ConstIterator(const Iterator&) = delete;
+		ConstIterator(const Node* node) { }
+		ConstIterator(const ConstIterator& other) { }
+		ConstIterator(const Iterator&) { }
 
 		const Node* GetCurrent() const { return current; }
 		const Node* GetNextNode() const { return current->GetNext(); }
@@ -57,7 +52,7 @@ public:
 			current = current->GetPrev(); 
 			return temp; 
 		}
-		const ScoreData& operator*() const { return current->GetData(); }
+		const T& operator*() const { return current->GetData(); }
 		ConstIterator& operator=(const ConstIterator& other) { current = other.current; return *this; }
 		const bool operator==(const ConstIterator& other) const { return current == other.current; }
 		const bool operator!=(const ConstIterator& other) const { return current != other.current; }
@@ -140,3 +135,5 @@ public:
 	void PrintForward();
 	void PrintBackward();
 };
+
+#include "DoublyLinkedList.inl"

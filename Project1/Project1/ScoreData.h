@@ -12,40 +12,17 @@ private:
 public:
 
 	// コンストラクタ
-	ScoreData(int i, const std::string& s)
-		: score(i), name(s) { }
+	ScoreData(int i, const std::string& s);
 
-	int GetScore()
-	{
-		return score;
-	}
+	int GetScore() const;
 
-	int GetScore() const
-	{
-		return score;
-	}
-
-	std::string GetName()
-	{
-		return name;
-	}
-
-	std::string GetName() const
-	{
-		return name;
-	}
+	std::string GetName() const;
 
 	// 不良なスコアを書けない
-	void WriteScore(int newScore)
-	{
-		if (score < 0) return;
-		score = newScore;
-	}
+	void WriteScore(int newScore);
 
 	// 不良な名前を書けない
-	void WriteName(const std::string& newName)
-	{
-		if (newName == "") return;
-		name = newName;
-	}
+	void WriteName(const std::string& newName);
 };
+
+#include "ScoreData.inl"

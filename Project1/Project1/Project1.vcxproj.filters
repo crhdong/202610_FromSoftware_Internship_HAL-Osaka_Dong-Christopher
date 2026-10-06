@@ -30,4 +30,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="DoublyLinkedList.inl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ScoreData.inl">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
