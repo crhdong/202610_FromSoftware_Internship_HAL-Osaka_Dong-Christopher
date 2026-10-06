@@ -41,8 +41,6 @@ public:
 		}
 		ConstIterator(const Iterator&) = delete;
 
-		ScoreData& GetData(Node* node) { return node->GetData(); }
-
 		ConstIterator& operator++() { current = current->GetNext(); return *this; }
 		ConstIterator& operator++(int) 
 		{ 
