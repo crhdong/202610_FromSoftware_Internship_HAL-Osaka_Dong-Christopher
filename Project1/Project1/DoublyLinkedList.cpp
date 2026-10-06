@@ -22,9 +22,6 @@ DoublyLinkedList::~DoublyLinkedList()
 // もしposition == nullptrの場合、return
 void DoublyLinkedList::InsertAt(Node* position, const ScoreData& data)
 {
-	// 不良データは死刑
-	if (data.GetScore() < 0) return;
-	if (data.GetName() == "") return;
 	if (position == nullptr) return;
 
 	Node* newNode = new Node(data);
