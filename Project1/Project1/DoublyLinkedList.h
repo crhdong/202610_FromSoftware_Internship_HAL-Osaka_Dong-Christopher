@@ -125,6 +125,8 @@ public:
 	ConstIterator FindByName(const std::string& name) const;
 
 	// スコア又は名前がリストに存在する
+	// trueならリストに存在する
+	// falseならリストに存在しない
 	bool CheckForScore(int score);
 	bool CheckForName(const std::string& name);
 };
