@@ -60,7 +60,7 @@ public:
 		Iterator(Node* node)
 			: ConstIterator(node) {
 		}
-		ScoreData& operator*() { return const_cast<Node*>(current)->GetData(); }
+		T& operator*() { return const_cast<Node*>(current)->GetData(); }
 		Iterator& operator++() { current = current->GetNext(); return *this; }
 		Iterator& operator++(int)
 		{

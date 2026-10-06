@@ -48,26 +48,15 @@ void DoublyLinkedList<T>::Node::SetNext(DoublyLinkedList<T>::Node* node) { next 
 // コンストラクタ
 
 template <typename T>
-DoublyLinkedList<T>::ConstIterator::ConstIterator(const DoublyLinkedList::Node* node)
-	: current(DoublyLinkedList<T>::node) { }
+DoublyLinkedList<T>::ConstIterator::ConstIterator(const Node* node)
+	: current(node) { }
 
 template <typename T>
-DoublyLinkedList<T>::ConstIterator::ConstIterator(const DoublyLinkedList::ConstIterator& other)
+DoublyLinkedList<T>::ConstIterator::ConstIterator(const ConstIterator& other)
 	: current(other.current) { }
 
 template <typename T>
-DoublyLinkedList<T>::ConstIterator::ConstIterator(const DoublyLinkedList::Iterator&) = delete;
-
-// ノード取得
-
-template <typename T>
-const DoublyLinkedList<T>::Node* DoublyLinkedList<T>::ConstIterator::GetCurrent() const { return current; }
-
-template <typename T>
-const DoublyLinkedList<T>::Node* DoublyLinkedList<T>::ConstIterator::GetNextNode() const { return current->GetNext(); }
-
-template <typename T>
-const DoublyLinkedList<T>::Node* DoublyLinkedList<T>::ConstIterator::GetPrevNode() const { return current->GetPrev(); }
+DoublyLinkedList<T>::ConstIterator::ConstIterator(const Iterator&) = delete;
 
 // ノードoperator
 
@@ -106,20 +95,20 @@ const T& DoublyLinkedList<T>::ConstIterator::operator*() const { return current-
 
 template <typename T>
 DoublyLinkedList<T>::ConstIterator& DoublyLinkedList<T>::ConstIterator::operator=
-	(const DoublyLinkedList::ConstIterator& other)
+	(const ConstIterator& other)
 {
 	current = other.current;
 	return *this;
 }
 
 template <typename T>
-const bool DoublyLinkedList<T>::ConstIterator::operator==(const DoublyLinkedList::ConstIterator& other) const
+const bool DoublyLinkedList<T>::ConstIterator::operator==(const ConstIterator& other) const
 {
 	return current == other.current;
 }
 
 template <typename T>
-const bool DoublyLinkedList<T>::ConstIterator::operator!=(const DoublyLinkedList::ConstIterator& other) const
+const bool DoublyLinkedList<T>::ConstIterator::operator!=(const ConstIterator& other) const
 {
 	return current != other.current;
 }
@@ -127,3 +116,14 @@ const bool DoublyLinkedList<T>::ConstIterator::operator!=(const DoublyLinkedList
 // -----------------
 // --- イテレータ ---
 // -----------------
+
+// コンストラクタ
+
+template <typename T>
+DoublyLinkedList<T>::Iterator::Iterator(Node* node)
+	: ConstIterator(node) { }
+
+// Operators
+
+template <typename T>
+DoublyLinkedList<T>::Iterator::T& 
