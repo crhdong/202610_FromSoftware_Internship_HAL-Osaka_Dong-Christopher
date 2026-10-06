@@ -43,7 +43,8 @@ void main()
 
 	file.close();
 
-	scoreList.PrintForward();
+	for (auto cur = scoreList.Begin(); cur != scoreList.End(); cur = ++cur)
+		printf("%d\t%s\n", (*cur).GetScore(), (*cur).GetName().c_str());
 
 	return;
 }

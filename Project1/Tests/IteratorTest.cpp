@@ -29,8 +29,8 @@ namespace IteratorTests
 		DoublyLinkedList list;
 		ScoreData data1(1, "pie");
 		list.Insert(list.Begin(), data1);
-		list.Begin().GetCurrent()->GetData().WriteName("ARAGHAO");
-		EXPECT_TRUE(list.Begin().GetCurrent()->GetData().GetName() != data1.GetName());
+		(*list.Begin()).WriteName("ARAGHAO");
+		EXPECT_TRUE((*list.Begin()).GetName() == "ARAGHAO");
 	}
 
 	// 空きリスト取得
@@ -48,10 +48,10 @@ namespace IteratorTests
 		DoublyLinkedList list;
 		ScoreData data1(1, "pie");
 		list.Insert(list.Begin(), data1);
-		ASSERT_EQ(list.cEnd().GetCurrent()->GetData().GetScore(), 0);
-		ASSERT_EQ(list.cEnd().GetCurrent()->GetData().GetName(), "");
-		ASSERT_EQ(list.cEnd().GetCurrent()->GetNext(), nullptr);
-		ASSERT_TRUE(list.cEnd().GetCurrent()->GetPrev() != nullptr);
+		ASSERT_EQ((*list.cEnd()).GetScore(), 0);
+		ASSERT_EQ((*list.cEnd()).GetName(), "");
+		ASSERT_EQ(++list.cEnd(), nullptr);
+		ASSERT_TRUE(--list.cEnd() != nullptr);
 	}
 
 	// --- 末尾向けイテレータ ---
@@ -62,12 +62,12 @@ namespace IteratorTests
 		ASSERT_DEATH(
 			{
 				DoublyLinkedList * list;
-				list->Begin().GetNextNode();
+				++list->Begin();
 			}, "");
 		ASSERT_DEATH(
 			{
 				DoublyLinkedList * list;
-				list->cBegin().GetNextNode();
+				++list->cBegin();
 			}, "");
 	}
 
@@ -76,8 +76,8 @@ namespace IteratorTests
 	TEST(ToTailTest, 6_EmptyListIterate)
 	{
 		DoublyLinkedList list;
-		EXPECT_EQ(list.Begin().GetNextNode(), nullptr);
-		EXPECT_EQ(list.cBegin().GetNextNode(), nullptr);
+		EXPECT_EQ(++list.Begin(), nullptr);
+		EXPECT_EQ(++list.cBegin(), nullptr);
 	}
 
 	// 空きリストの末尾から末尾+1に移動
@@ -85,10 +85,8 @@ namespace IteratorTests
 	TEST(ToTailTest, 7_TailIterateForward)
 	{
 		DoublyLinkedList list;
-		EXPECT_EQ(list.Last().GetCurrent()->GetNext(), nullptr);
-		EXPECT_EQ(list.Last().GetCurrent()->GetNext(), nullptr);
-		EXPECT_EQ(list.cLast().GetCurrent()->GetNext(), nullptr);
-		EXPECT_EQ(list.cLast().GetCurrent()->GetNext(), nullptr);
+		EXPECT_EQ(++list.Last(), nullptr);
+		EXPECT_EQ(++list.cLast(), nullptr);
 	}
 
 	// 二つ以上なリストの先頭から末尾に移動
@@ -100,10 +98,10 @@ namespace IteratorTests
 		ScoreData data2(2, "cake");
 		list.Insert(list.Begin(), data1);
 		list.Insert(list.Begin(), data2);
-		EXPECT_EQ(list.Begin().GetNextNode()->GetData().GetName(), "pie");
-		EXPECT_EQ(list.Begin().GetNextNode()->GetData().GetScore(), 1);
-		EXPECT_EQ(list.cBegin().GetNextNode()->GetData().GetName(), "pie");
-		EXPECT_EQ(list.cBegin().GetNextNode()->GetData().GetScore(), 1);
+		EXPECT_EQ((*list.Begin()).GetName(), "cake");
+		EXPECT_EQ((*list.Begin()).GetScore(), 2);
+		EXPECT_EQ((*list.cBegin()).GetName(), "cake");
+		EXPECT_EQ((*list.cBegin()).GetScore(), 2);
 	}
 
 	// ++operatorテスト
@@ -120,8 +118,8 @@ namespace IteratorTests
 		DoublyLinkedList::ConstIterator cit2 = cit;
 		EXPECT_FALSE(it == ++it2);
 		EXPECT_FALSE(cit == ++cit2);
-		EXPECT_EQ(it2.GetCurrent()->GetData().GetName(), "pie");
-		EXPECT_EQ(cit2.GetCurrent()->GetData().GetName(), "pie");
+		EXPECT_EQ((*it2).GetName(), "pie");
+		EXPECT_EQ((*cit2).GetName(), "pie");
 	}
 
 	// ++operator(int)テスト
@@ -138,8 +136,8 @@ namespace IteratorTests
 		DoublyLinkedList::ConstIterator cit2 = cit;
 		EXPECT_EQ(it2, it++);
 		EXPECT_EQ(cit2, cit++);
-		EXPECT_EQ(it.GetCurrent()->GetData().GetName(), "pie");
-		EXPECT_EQ(cit.GetCurrent()->GetData().GetName(), "pie");
+		EXPECT_EQ((*it).GetName(), "pie");
+		EXPECT_EQ((*cit).GetName(), "pie");
 	}
 
 	// --- 先頭向けイテレータ ---
@@ -150,12 +148,12 @@ namespace IteratorTests
 		ASSERT_DEATH(
 			{
 				DoublyLinkedList * list;
-				list->End().GetPrevNode();
+				--list->End();
 			}, "");
 		ASSERT_DEATH(
 			{
 				DoublyLinkedList * list;
-				list->cEnd().GetPrevNode();
+				--list->cEnd();
 			}, "");
 	}
 
@@ -164,8 +162,8 @@ namespace IteratorTests
 	TEST(ToHeadTest, 12_EmptyListIterate)
 	{
 		DoublyLinkedList list;
-		EXPECT_EQ(list.End().GetNextNode(), nullptr);
-		EXPECT_EQ(list.cEnd().GetNextNode(), nullptr);
+		EXPECT_EQ(++list.End(), nullptr);
+		EXPECT_EQ(++list.cEnd(), nullptr);
 	}
 
 	// 空きリストの末尾+1から末尾に移動
@@ -173,10 +171,8 @@ namespace IteratorTests
 	TEST(ToHeadTest, 13_TailIterateBackward)
 	{
 		DoublyLinkedList list;
-		EXPECT_EQ(list.End().GetCurrent()->GetPrev(), nullptr);
-		EXPECT_EQ(list.End().GetCurrent()->GetPrev(), nullptr);
-		EXPECT_EQ(list.cEnd().GetCurrent()->GetPrev(), nullptr);
-		EXPECT_EQ(list.cEnd().GetCurrent()->GetPrev(), nullptr);
+		EXPECT_EQ(--list.End(), nullptr);
+		EXPECT_EQ(--list.cEnd(), nullptr);
 	}
 
 	// 二つ以上なリストのEndから先頭に移動
@@ -188,10 +184,10 @@ namespace IteratorTests
 		ScoreData data2(2, "cake");
 		list.Insert(list.End(), data1);
 		list.Insert(list.End(), data2);
-		EXPECT_EQ(list.End().GetPrevNode()->GetData().GetName(), "cake");
-		EXPECT_EQ(list.End().GetPrevNode()->GetData().GetScore(), 2);
-		EXPECT_EQ(list.cEnd().GetPrevNode()->GetData().GetName(), "cake");
-		EXPECT_EQ(list.cEnd().GetPrevNode()->GetData().GetScore(), 2);
+		EXPECT_EQ((*list.Last()).GetName(), "cake");
+		EXPECT_EQ((*list.Last()).GetScore(), 2);
+		EXPECT_EQ((*list.cLast()).GetName(), "cake");
+		EXPECT_EQ((*list.cLast()).GetScore(), 2);
 	}
 
 	// --operator
@@ -208,8 +204,8 @@ namespace IteratorTests
 		DoublyLinkedList::ConstIterator cit2 = cit;
 		EXPECT_FALSE(--it == it2);
 		EXPECT_FALSE(--cit == cit2);
-		EXPECT_EQ(it.GetCurrent()->GetData().GetName(), "cake");
-		EXPECT_EQ(cit.GetCurrent()->GetData().GetName(), "cake");
+		EXPECT_EQ((*it).GetName(), "cake");
+		EXPECT_EQ((*cit).GetName(), "cake");
 	}
 
 	// --operator(int)
@@ -226,8 +222,8 @@ namespace IteratorTests
 		DoublyLinkedList::ConstIterator cit2 = cit;
 		EXPECT_EQ(it2, it--);
 		EXPECT_EQ(cit2, cit--);
-		EXPECT_EQ(it.GetCurrent()->GetData().GetName(), "cake");
-		EXPECT_EQ(cit.GetCurrent()->GetData().GetName(), "cake");
+		EXPECT_EQ((*it).GetName(), "cake");
+		EXPECT_EQ((*cit).GetName(), "cake");
 	}
 
 	// --- イテレータのコピーコンストラクタ ---
@@ -333,5 +329,4 @@ namespace IteratorTests
 		DoublyLinkedList::Iterator it2(list.End());
 		EXPECT_TRUE(it1 != it2);
 	}
-
 }
