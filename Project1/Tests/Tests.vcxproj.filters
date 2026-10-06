@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="IteratorTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="ListTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project1\DoublyLinkedList.cpp">
+      <Filter>MainProject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="..\Project1\ScoreData.h">
+      <Filter>MainProject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project1\DoublyLinkedList.h">
+      <Filter>MainProject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{3c848e61-1686-4dcc-99bd-ad0e8d9e7b1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainProject">
+      <UniqueIdentifier>{2791abab-a89d-4b56-bb78-771363b8aaed}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

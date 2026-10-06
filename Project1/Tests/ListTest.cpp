@@ -24,12 +24,13 @@ namespace ListTests
 		EXPECT_EQ(list.GetSize(), 1);
 	}
 
-	// 不良データを末尾で挿入
+	// 不良イテレータを末尾で挿入
 	TEST(AssignmentTest, 2_TailInsertionFailure)
 	{
 		DoublyLinkedList list;
-		ScoreData badData(-150, "");
-		list.Insert(list.End(), badData);
+		ScoreData data(1, "pie");
+		DoublyLinkedList::Iterator it(nullptr);
+		list.Insert(it, data);
 		EXPECT_EQ(list.GetSize(), 0);
 	}
 
@@ -42,12 +43,13 @@ namespace ListTests
 		EXPECT_EQ(list.GetSize(), 1);
 	}
 
-	// 不良データを先頭で挿入
+	// 不良なイテレータを先頭で挿入
 	TEST(AssignmentTest, 4_InsertionFailure)
 	{
 		DoublyLinkedList list;
-		ScoreData badData(-150, "");
-		list.Insert(list.Begin(), badData);
+		ScoreData data(1, "pie");
+		DoublyLinkedList::Iterator it(nullptr);
+		list.Insert(it, data);
 		EXPECT_EQ(list.GetSize(), 0);
 	}
 
@@ -99,7 +101,7 @@ namespace ListTests
 		ScoreData data2(2, "cake");
 		list.Insert(list.Begin(), data1);
 		list.Insert(list.Begin(), data2);
-		EXPECT_EQ(list.cBegin().GetCurrent()->GetData().GetName(), "cake");
+		EXPECT_EQ((*list.cBegin()).GetName(), "cake");
 	}
 
 	// ノードがあるリストに末尾で挿入
@@ -111,7 +113,7 @@ namespace ListTests
 		ScoreData data2(2, "cake");
 		list.Insert(list.End(), data1);
 		list.Insert(list.End(), data2);
-		EXPECT_EQ(list.cBegin().GetCurrent()->GetData().GetName(), "pie");
+		EXPECT_EQ((*list.cBegin()).GetName(), "pie");
 	}
 
 	// ノードがあるリストの中で挿入
@@ -124,7 +126,9 @@ namespace ListTests
 		list.Insert(list.Begin(), data1);
 		list.Insert(list.End(), data2);
 		list.Insert(list.FindByName("cake"), data3);
-		EXPECT_EQ(list.FindByName("macaron").GetNextNode()->GetData().GetName(), "cake");
+		DoublyLinkedList::Iterator it = list.FindByName("macaron");
+		++it;
+		EXPECT_EQ((*it).GetName(), "cake");
 	}
 
 	// コンストイテレータで挿入
@@ -135,7 +139,7 @@ namespace ListTests
 		ScoreData data2(2, "cake");
 		list.Insert(list.cBegin(), data1);
 		list.Insert(list.cBegin(), data2);
-		EXPECT_EQ(list.cBegin().GetNextNode()->GetData().GetName(), "pie");
+		EXPECT_EQ((*list.cBegin()).GetName(), "cake");
 	}
 
 	// --- データ解除 ---
@@ -159,7 +163,7 @@ namespace ListTests
 		list.Insert(list.Begin(), data1);
 		list.Insert(list.Begin(), data2);
 		list.Delete(list.Begin());
-		EXPECT_EQ(list.cBegin().GetCurrent()->GetData().GetName(), "pie");
+		EXPECT_EQ((*list.cBegin()).GetName(), "pie");
 	}
 
 	// ノード二つ以上リストの末尾を解除
@@ -185,7 +189,7 @@ namespace ListTests
 		list.Insert(list.Begin(), data2);
 		list.Insert(list.Begin(), data3);
 		list.Delete(list.FindByName("pie"));
-		EXPECT_EQ(list.cLast().GetCurrent()->GetData().GetName(), "cake");
+		EXPECT_EQ((*list.cLast()).GetName(), "cake");
 		EXPECT_EQ(list.GetSize(), 2);
 	}
 
@@ -201,7 +205,7 @@ namespace ListTests
 		list.Insert(list.Begin(), data3);
 		list.Delete(list.cBegin());
 		list.Delete(list.cBegin());
-		EXPECT_EQ(list.cBegin().GetCurrent()->GetData().GetName(), "pie");
+		EXPECT_EQ((*list.cBegin()).GetName(), "pie");
 	}
 
 	// あってないイテレータ（End）で解除
@@ -220,7 +224,7 @@ namespace ListTests
 	TEST(HeadIteratorTest, 23_EmptyList)
 	{
 		DoublyLinkedList list;
-		DoublyLinkedList::Iterator it = list.Begin().GetCurrent();
+		DoublyLinkedList::Iterator it = list.Begin();
 
 		EXPECT_EQ((*it).GetScore(), 0);
 		EXPECT_EQ((*it).GetName(), "");
@@ -329,7 +333,7 @@ namespace ListTests
 	TEST(HeadConstIteratorTest, 29_EmptyList)
 	{
 		DoublyLinkedList list;
-		DoublyLinkedList::ConstIterator cit = list.cBegin().GetCurrent();
+		DoublyLinkedList::ConstIterator cit = list.cBegin();
 
 		EXPECT_EQ((*cit).GetScore(), 0);
 		EXPECT_EQ((*cit).GetName(), "");
@@ -437,7 +441,7 @@ namespace ListTests
 	TEST(EndIteratorTest, 35_EmptyList)
 	{
 		DoublyLinkedList list;
-		DoublyLinkedList::Iterator it = list.End().GetCurrent();
+		DoublyLinkedList::Iterator it = list.End();
 
 		EXPECT_EQ((*it).GetScore(), 0);
 		EXPECT_EQ((*it).GetName(), "");
@@ -546,7 +550,7 @@ namespace ListTests
 	TEST(EndConstIteratorTest, 41_EmptyList)
 	{
 		DoublyLinkedList list;
-		DoublyLinkedList::ConstIterator cit = list.cEnd().GetCurrent();
+		DoublyLinkedList::ConstIterator cit = list.cEnd();
 
 		EXPECT_EQ((*cit).GetScore(), 0);
 		EXPECT_EQ((*cit).GetName(), "");

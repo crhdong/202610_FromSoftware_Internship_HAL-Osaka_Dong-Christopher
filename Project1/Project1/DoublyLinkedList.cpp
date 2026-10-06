@@ -22,9 +22,6 @@ DoublyLinkedList::~DoublyLinkedList()
 // もしposition == nullptrの場合、return
 void DoublyLinkedList::InsertAt(Node* position, const ScoreData& data)
 {
-	// 不良データは死刑
-	if (data.GetScore() < 0) return;
-	if (data.GetName() == "") return;
 	if (position == nullptr) return;
 
 	Node* newNode = new Node(data);
@@ -39,6 +36,7 @@ void DoublyLinkedList::InsertAt(Node* position, const ScoreData& data)
 		count++;
 		return;
 	}
+
 	// End insertion
 	if (position == &dummy)
 	{
@@ -60,7 +58,7 @@ void DoublyLinkedList::InsertAt(Node* position, const ScoreData& data)
 		return;
 	}
 
-	// Somewhere in the middle insertion - no need to handle head/tail
+	// Somewhere in the middle insertion - no need to handle tail
 	Node* currentNode = const_cast<Node*>(position);
 	newNode->SetNext(currentNode);
 	newNode->SetPrev(currentNode->GetPrev());
@@ -118,11 +116,11 @@ int DoublyLinkedList::GetSize() const
 // 不良データが追加できない
 void DoublyLinkedList::Insert(ConstIterator position, const ScoreData& data)
 {
-	InsertAt(const_cast<Node*>(position.GetCurrent()), data);
+	InsertAt(const_cast<Node*>(position.current), data);
 }
 void DoublyLinkedList::Insert(Iterator position, const ScoreData& data) 
 { 
-	InsertAt(position.GetCurrent(), data);
+	InsertAt(const_cast<Node*>(position.current), data);
 }
 
 // イテレータ一位でノードを解除する
@@ -130,11 +128,11 @@ void DoublyLinkedList::Insert(Iterator position, const ScoreData& data)
 // nullptrとdummyが渡した場合、直ぐreturn
 void DoublyLinkedList::Delete(ConstIterator position)
 {
-	DeleteAt(const_cast<Node*>(position.GetCurrent()));
+	DeleteAt(const_cast<Node*>(position.current));
 }
 void DoublyLinkedList::Delete(Iterator position)
 {
-	DeleteAt(position.GetCurrent());
+	DeleteAt(const_cast<Node*>(position.current));
 }
 
 // --- イテレータ・コンストイテレータ ---
@@ -204,25 +202,12 @@ DoublyLinkedList::ConstIterator DoublyLinkedList::FindByName(const std::string& 
 bool DoublyLinkedList::CheckForScore(int score)
 {
 	for (ConstIterator it = cBegin(); it != cEnd(); ++it)
-		if (it.GetCurrent()->GetData().GetScore() == score) return true;
+		if ((*it).GetScore() == score) return true;
 	return false;
 }
 bool DoublyLinkedList::CheckForName(const std::string& name)
 {
 	for (ConstIterator it = cBegin(); it != cEnd(); ++it)
-		if (it.GetCurrent()->GetData().GetName() == name) return true;
+		if ((*it).GetName() == name) return true;
 	return false;
-}
-
-// --- 表示・アウトプット ---
-// コンソールにリストを印刷する
-void DoublyLinkedList::PrintForward()
-{
-	for (Node* cur = head; cur != &dummy; cur = cur->GetNext())
-		printf("%d\t%s\n", cur->GetData().GetScore(), cur->GetData().GetName().c_str());
-}
-void DoublyLinkedList::PrintBackward()
-{
-	for (Node* cur = tail; cur != &dummy; cur = cur->GetPrev())
-		printf("%d\t%s\n", cur->GetData().GetScore(), cur->GetData().GetName().c_str());
 }

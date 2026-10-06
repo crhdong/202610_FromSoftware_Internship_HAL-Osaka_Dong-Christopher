@@ -28,16 +28,13 @@ public:
 	class Iterator; // ConstIteratorはコンストラクタにIteratorを禁止するため
 	class ConstIterator
 	{
+		friend class DoublyLinkedList;
 	protected:
 		const Node* current;
 	public:
 		ConstIterator(const Node* node) { }
 		ConstIterator(const ConstIterator& other) { }
 		ConstIterator(const Iterator&) { }
-
-		const Node* GetCurrent() const { return current; }
-		const Node* GetNextNode() const { return current->GetNext(); }
-		const Node* GetPrevNode() const { return current->GetPrev(); }
 
 		ConstIterator& operator++() { current = current->GetNext(); return *this; }
 		ConstIterator& operator++(int) 
@@ -64,10 +61,6 @@ public:
 			: ConstIterator(node) {
 		}
 		ScoreData& operator*() { return const_cast<Node*>(current)->GetData(); }
-		Node* GetCurrent() { return const_cast<Node*>(current); }
-		Node* GetNextNode() { return const_cast<Node*>(current)->GetNext(); }
-		Node* GetPrevNode() { return const_cast<Node*>(current)->GetPrev(); }
-
 		Iterator& operator++() { current = current->GetNext(); return *this; }
 		Iterator& operator++(int)
 		{
@@ -118,7 +111,6 @@ public:
 	Iterator End();
 	ConstIterator cEnd() const;
 
-
 	// スコアで探す
 	Iterator FindByScore(int score);
 	ConstIterator FindByScore(int score) const;
@@ -130,10 +122,6 @@ public:
 	// スコア又は名前がリストに存在する
 	bool CheckForScore(int score);
 	bool CheckForName(const std::string& name);
-
-	// 印刷
-	void PrintForward();
-	void PrintBackward();
 };
 
 #include "DoublyLinkedList.inl"
