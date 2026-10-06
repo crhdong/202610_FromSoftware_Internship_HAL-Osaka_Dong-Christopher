@@ -6,7 +6,7 @@
 class DoublyLinkedList
 {
 private:
-	class Node
+	struct Node
 	{
 	private:
 		ScoreData scoreData;
