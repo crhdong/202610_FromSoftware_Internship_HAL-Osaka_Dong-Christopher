@@ -2,6 +2,9 @@
 
 
 // コンストラクタ
+inline ScoreData::ScoreData()
+	: score(-1), name("") { }
+
 inline ScoreData::ScoreData(int i, const std::string& s)
 	: score(i), name(s) {
 }

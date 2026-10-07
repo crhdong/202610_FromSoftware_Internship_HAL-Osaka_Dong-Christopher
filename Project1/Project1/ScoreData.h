@@ -12,6 +12,7 @@ private:
 public:
 
 	// コンストラクタ
+	ScoreData();
 	ScoreData(int i, const std::string& s);
 
 	int GetScore() const;

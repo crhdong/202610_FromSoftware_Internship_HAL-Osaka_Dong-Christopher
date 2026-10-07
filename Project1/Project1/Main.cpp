@@ -19,12 +19,12 @@ static int StrToInt(const std::string& s, size_t& endPos)
 
 // --- Main ---
 
-void main()
+int main()
 {
 	// ファイルを開く
 	std::fstream file("Scores.txt");
 
-	DoublyLinkedList scoreList;
+	DoublyLinkedList<ScoreData> scoreList;
 	std::string line;
 
 	// ファイルを線でリストにコピーする
@@ -46,5 +46,5 @@ void main()
 	for (auto cur = scoreList.Begin(); cur != scoreList.End(); cur = ++cur)
 		printf("%d\t%s\n", (*cur).GetScore(), (*cur).GetName().c_str());
 
-	return;
+	return 0;
 }
