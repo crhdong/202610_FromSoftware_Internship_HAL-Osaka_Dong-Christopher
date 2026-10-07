@@ -74,7 +74,7 @@ const typename DLL* DLLCIt::GetOwner() const
 // --- ÉmÅ[Éhoperator ---
 
 TEMPLATE
-typename DLLCIt& DLLCIt::operator++()
+typename DLLCIt DLLCIt::operator++()
 {
 	if (current != nullptr)
 	{
@@ -84,7 +84,7 @@ typename DLLCIt& DLLCIt::operator++()
 }
 
 TEMPLATE
-typename DLLCIt& DLLCIt::operator++(int)
+typename DLLCIt DLLCIt::operator++(int)
 {
 	ConstIterator temp = *this;
 	if (current != nullptr)
@@ -95,7 +95,7 @@ typename DLLCIt& DLLCIt::operator++(int)
 }
 
 TEMPLATE
-typename DLLCIt& DLLCIt::operator--()
+typename DLLCIt DLLCIt::operator--()
 {
 	if (current != nullptr)
 	{
@@ -105,7 +105,7 @@ typename DLLCIt& DLLCIt::operator--()
 }
 
 TEMPLATE
-typename DLLCIt& DLLCIt::operator--(int)
+typename DLLCIt DLLCIt::operator--(int)
 {
 	ConstIterator temp = *this;
 	if (current != nullptr)
@@ -122,7 +122,7 @@ const T& DLLCIt::operator*() const
 }
 
 TEMPLATE
-typename DLLCIt& DLLCIt::operator=(const ConstIterator& other)
+typename DLLCIt DLLCIt::operator=(const ConstIterator& other)
 {
 	current = other.current;
 	owner = other.owner;
@@ -160,7 +160,7 @@ T& DLLIt::operator*()
 }
 
 TEMPLATE
-typename DLLIt& DLLIt::operator++()
+typename DLLIt DLLIt::operator++()
 {
 	if (DLLIt::current != nullptr)
 	{
@@ -170,7 +170,7 @@ typename DLLIt& DLLIt::operator++()
 }
 
 TEMPLATE
-typename DLLIt& DLLIt::operator++(int)
+typename DLLIt DLLIt::operator++(int)
 {
 	Iterator temp = *this;
 	if (DLLIt::current != nullptr)
@@ -181,7 +181,7 @@ typename DLLIt& DLLIt::operator++(int)
 }
 
 TEMPLATE
-typename DLLIt& DLLIt::operator--()
+typename DLLIt DLLIt::operator--()
 {
 	if (DLLIt::current != nullptr)
 	{
@@ -191,7 +191,7 @@ typename DLLIt& DLLIt::operator--()
 }
 
 TEMPLATE
-typename DLLIt& DLLIt::operator--(int)
+typename DLLIt DLLIt::operator--(int)
 {
 	Iterator temp = *this;
 	if (DLLIt::current != nullptr)

@@ -39,12 +39,12 @@ public:
 
 		const DoublyLinkedList* GetOwner() const;
 
-		ConstIterator& operator++();
-		ConstIterator& operator++(int);
-		ConstIterator& operator--();
-		ConstIterator& operator--(int);
+		ConstIterator operator++();
+		ConstIterator operator++(int);
+		ConstIterator operator--();
+		ConstIterator operator--(int);
 		const T& operator*() const;
-		ConstIterator& operator=(const ConstIterator& other);
+		ConstIterator operator=(const ConstIterator& other);
 		bool operator==(const ConstIterator& other) const;
 		bool operator!=(const ConstIterator& other) const;
 	};
@@ -53,10 +53,10 @@ public:
 	public:
 		Iterator(Node* node, const DoublyLinkedList* list);
 		T& operator*();
-		Iterator& operator++();
-		Iterator& operator++(int);
-		Iterator& operator--();
-		Iterator& operator--(int);
+		Iterator operator++();
+		Iterator operator++(int);
+		Iterator operator--();
+		Iterator operator--(int);
 	};
 private:
 	Node* head;
