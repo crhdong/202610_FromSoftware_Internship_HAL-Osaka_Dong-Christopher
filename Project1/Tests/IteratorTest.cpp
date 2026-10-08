@@ -9,20 +9,24 @@ namespace IteratorTests
 	// --------------------
 
 	// イテレータが参照がない
-
+	// EXPECT NE
+	// EXPECT SIZE0 
 	TEST(RetrievalTest, 0_UnreferencedIterator)
 	{
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList<ScoreData>* list;
-				list->Begin();
-			}, "");
+		DoublyLinkedList<ScoreData> list;
+		ScoreData data1(1, "pie");
+		DoublyLinkedList<ScoreData>::Iterator it(nullptr, nullptr);
 
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList<ScoreData>* list;
-				list->cBegin();
-			}, "");
+		list.Insert(it, data1);
+
+		EXPECT_NE(list.Begin(), it);
+		EXPECT_NE(list.cBegin(), it);
+		EXPECT_EQ(list.GetSize(), 0);
+
+		list.Insert(list.Begin(), data1);
+
+		EXPECT_NE(list.Begin(), it);
+		EXPECT_NE(list.cBegin(), it);
 	}
 
 	// イテレータでデータを取得して、上書き
@@ -54,21 +58,25 @@ namespace IteratorTests
 		EXPECT_EQ((*++list.cLast()).GetName(), "");
 	}
 
+	// -----------------------
 	// --- 末尾向けイテレータ ---
+	// -----------------------
 
-	// リストが存在しない（死ぬ）
-	TEST(ToTailTest, 5_NoListIterate)
+	// イテレータの参照がない++
+	// EXPECT SAME
+	// EXPECT NE
+	TEST(ToTailTest, 5_UnreferencedIteratorForward)
 	{
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList<ScoreData>* list;
-				++list->Begin();
-			}, "");
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList<ScoreData>* list;
-				++list->cBegin();
-			}, "");
+		DoublyLinkedList<ScoreData> list;
+		DoublyLinkedList<ScoreData>::Iterator it(nullptr, nullptr);
+		DoublyLinkedList<ScoreData>::Iterator it2(nullptr, nullptr);
+
+		EXPECT_EQ(it, ++it);
+		EXPECT_EQ(it, it2);
+		EXPECT_NE(it, list.Begin());
+		EXPECT_NE(it, list.End());
+		EXPECT_NE(it, list.cBegin());
+		EXPECT_NE(it, list.cEnd());
 	}
 
 	// 空きリストの先頭から末尾に移動
@@ -140,21 +148,25 @@ namespace IteratorTests
 		EXPECT_EQ((*cit).GetName(), "pie");
 	}
 
+	// -----------------------
 	// --- 先頭向けイテレータ ---
+	// -----------------------
 
-	// リストが存在しない（死ぬ）
-	TEST(ToHeadTest, 11_NoListIterate)
+	// イテレータの参照がない--
+	// EXPECT SAME
+	// EXPECT NE
+	TEST(ToHeadTest, 11_UnreferencedIteratorForward)
 	{
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList<ScoreData>* list;
-				--list->End();
-			}, "");
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList<ScoreData>* list;
-				--list->cEnd();
-			}, "");
+		DoublyLinkedList<ScoreData> list;
+		DoublyLinkedList<ScoreData>::Iterator it(nullptr, nullptr);
+		DoublyLinkedList<ScoreData>::Iterator it2(nullptr, nullptr);
+
+		EXPECT_EQ(it, --it);
+		EXPECT_EQ(it, it2);
+		EXPECT_NE(it, list.Begin());
+		EXPECT_NE(it, list.End());
+		EXPECT_NE(it, list.cBegin());
+		EXPECT_NE(it, list.cEnd());
 	}
 
 	// 空きリストの末尾から先頭に移動
@@ -260,7 +272,9 @@ namespace IteratorTests
 		EXPECT_FALSE(it1 == it2);
 	}
 
+	// --------------------
 	// --- イテレータ == ---
+	// --------------------
 
 	// 空きリスト
 	// true
@@ -296,7 +310,9 @@ namespace IteratorTests
 		EXPECT_FALSE(it1 == it2);
 	}
 
+	// --------------------
 	// --- イテレータ != ---
+	// --------------------
 	
 	// 空きリスト
 	// false
