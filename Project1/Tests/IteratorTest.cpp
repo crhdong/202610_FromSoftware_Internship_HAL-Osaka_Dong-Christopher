@@ -4,11 +4,13 @@
 
 namespace IteratorTests
 {
-
+	// --------------------
 	// --- イテレータ取得 ---
+	// --------------------
 
-	// リストが存在しない（死ぬ）
-	TEST(RetrievalTest, 0_NoList)
+	// イテレータが参照がない
+
+	TEST(RetrievalTest, 0_UnreferencedIterator)
 	{
 		ASSERT_DEATH(
 			{
