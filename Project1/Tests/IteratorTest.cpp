@@ -68,7 +68,7 @@ namespace IteratorTests
 	// イテレータのパラメーターはないが ++
 	// EXPECT SAME
 	// EXPECT NE (リストのイテレータ)
-	TEST(ToTailTest, 5_UnreferencedIterator++)
+	TEST(ToTailTest, 5_UnreferencedIteratorForward)
 	{
 		DoublyLinkedList list;
 		DoublyLinkedList::Iterator it(nullptr, nullptr);
@@ -182,7 +182,7 @@ namespace IteratorTests
 	// リストが存在しない（死ぬ）
 	// EXPECT SAME
 	// EXPECT NE (リストのイテレータ)
-	TEST(ToHeadTest, 11_UnreferencedIterator--)
+	TEST(ToHeadTest, 11_UnreferencedIteratorBackward)
 	{
 		DoublyLinkedList list;
 		DoublyLinkedList::Iterator it(nullptr, nullptr);
