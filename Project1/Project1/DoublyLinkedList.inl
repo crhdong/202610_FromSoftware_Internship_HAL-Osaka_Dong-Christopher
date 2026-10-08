@@ -206,16 +206,16 @@ typename DLLIt DLLIt::operator--(int)
 // ------------------------
 
 // --- コンストラクタ ---
-TEMPLATE
-DLL::DoublyLinkedList()
+template <typename T>
+DoublyLinkedList<T>::DoublyLinkedList()
 	: dummy(T{}), head(&dummy), tail(&dummy), count(0) 
 {
 	dummy.SetNext(&dummy);
 	dummy.SetPrev(&dummy);
 }
 
-TEMPLATE
-DLL::~DoublyLinkedList()
+template <typename T>
+DoublyLinkedList<T>::~DoublyLinkedList()
 {
 	Node* cur = head;
 	while (cur != &dummy)
