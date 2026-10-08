@@ -262,7 +262,7 @@ namespace ListTests
 	{
 		DoublyLinkedList<ScoreData> list;
 		DoublyLinkedList<ScoreData>::Iterator it = list.Begin();
-		ScoreData dummy(0, "");
+		ScoreData dummy(-1, "");
 
 		EXPECT_EQ((*it).GetScore(), dummy.GetScore());
 		EXPECT_EQ((*it).GetName(), dummy.GetName());
@@ -381,7 +381,7 @@ namespace ListTests
 	{
 		DoublyLinkedList<ScoreData> list;
 		DoublyLinkedList<ScoreData>::ConstIterator cit = list.cBegin();
-		ScoreData dummy(0, "");
+		ScoreData dummy(-1, "");
 
 		EXPECT_EQ((*cit).GetScore(), dummy.GetScore());
 		EXPECT_EQ((*cit).GetName(), dummy.GetName());
@@ -502,7 +502,7 @@ namespace ListTests
 	{
 		DoublyLinkedList<ScoreData> list;
 		DoublyLinkedList<ScoreData>::Iterator it = list.End();
-		ScoreData dummy(0, "");
+		ScoreData dummy(-1, "");
 
 		EXPECT_EQ((*it).GetScore(), dummy.GetScore());
 		EXPECT_EQ((*it).GetName(), dummy.GetName());
@@ -621,7 +621,7 @@ namespace ListTests
 	{
 		DoublyLinkedList<ScoreData> list;
 		DoublyLinkedList<ScoreData>::ConstIterator cit = list.cEnd();
-		ScoreData dummy(0, "");
+		ScoreData dummy(-1, "");
 
 		EXPECT_EQ((*cit).GetScore(), dummy.GetScore());
 		EXPECT_EQ((*cit).GetName(), dummy.GetName());
