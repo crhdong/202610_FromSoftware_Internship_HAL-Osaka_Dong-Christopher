@@ -6,6 +6,7 @@ HAL大阪　ドン　クリストファー
 
 #### チェンジログ：
 テストをExcelに書いている指示をより合ってるように書き直しました。
+前のASSERT_DEATHのテストを消して、代わりにConstIterator/Iterator(nullptr, nullptr)のテストを作りました。
 
 warningを掃除しました。残りのwarningはASSERT_DEATHのためです。
 
