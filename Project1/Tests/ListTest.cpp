@@ -1,14 +1,14 @@
-ï»¿#include "gtest/gtest.h"
+#include "gtest/gtest.h"
 #include "pch.h"
 #include "../Project1/DoublyLinkedList.h"
 
 namespace ListTests
 {
 	// ---------------------- //
-	// --- æŒ¿å…¥ãƒ»è§£é™¤ãƒ†ã‚¹ãƒˆ --- //
+	// --- ‘}“üE‰ğœƒeƒXƒg --- //
 	// ---------------------- //
 
-	// ç©ºããƒªã‚¹ãƒˆã‚µã‚¤ã‚º
+	// ‹ó‚«ƒŠƒXƒgƒTƒCƒY
 	// EXPECT 0
 	TEST(AssignmentTest, 0_EmptyList)
 	{
@@ -17,7 +17,7 @@ namespace ListTests
 		EXPECT_EQ(count, 0);
 	}
 
-	// æœ«å°¾ã§æŒ¿å…¥
+	// ––”ö‚Å‘}“ü
 	// EXPECT 1
 	TEST(AssignmentTest, 1_TailInsertion)
 	{
@@ -27,7 +27,7 @@ namespace ListTests
 		EXPECT_EQ(list.GetSize(), 1);
 	}
 
-	// æœ«å°¾ã§æŒ¿å…¥å¤±æ•—
+	// ––”ö‚Å‘}“ü¸”s
 	// EXPECT 0
 	TEST(AssignmentTest, 2_TailInsertionFailure)
 	{
@@ -38,7 +38,7 @@ namespace ListTests
 		EXPECT_EQ(list.GetSize(), 0);
 	}
 
-	// å…ˆé ­ã§æŒ¿å…¥æˆåŠŸ
+	// æ“ª‚Å‘}“ü¬Œ÷
 	// EXPECT 1
 	TEST(AssignmentTest, 3_InsertionSuccessful)
 	{
@@ -48,7 +48,7 @@ namespace ListTests
 		EXPECT_EQ(list.GetSize(), 1);
 	}
 
-	// å…ˆé ­ã§æŒ¿å…¥å¤±æ•—
+	// æ“ª‚Å‘}“ü¸”s
 	// EXPECT 0
 	TEST(AssignmentTest, 4_InsertionFailure)
 	{
@@ -59,7 +59,7 @@ namespace ListTests
 		EXPECT_EQ(list.GetSize(), 0);
 	}
 
-	// ãƒãƒ¼ãƒ‰ã‚’è§£é™¤
+	// ƒm[ƒh‚ğ‰ğœ
 	// EXPECT 0
 	TEST(AssignmentTest, 5_Delete)
 	{
@@ -70,7 +70,7 @@ namespace ListTests
 		EXPECT_EQ(list.GetSize(), 0);
 	}
 
-	// æœ«å°¾+1ã‚’è§£é™¤ï¼ˆå¤±æ•—ï¼‰
+	// ––”ö+1‚ğ‰ğœi¸”sj
 	TEST(AssignmentTest, 6_DeletionFailure)
 	{
 		DoublyLinkedList list;
@@ -80,7 +80,7 @@ namespace ListTests
 		EXPECT_EQ(list.GetSize(), 1);
 	}
 
-	// ä½•ã‚‚ã¨ã“ã‚ã‚’è§£é™¤ï¼ˆå½±éŸ¿ãŒãªã„)
+	// ‰½‚à‚Æ‚±‚ë‚ğ‰ğœi‰e‹¿‚ª‚È‚¢)
 	// EXPECT 0
 	TEST(AssignmentTest, 7_EmptyDeletion)
 	{
@@ -90,10 +90,10 @@ namespace ListTests
 	}
 
 	// ----------------- //
-	// --- æŒ¿å…¥ãƒ†ã‚¹ãƒˆ --- //
+	// --- ‘}“üƒeƒXƒg --- //
 	// ----------------- //
 
-	// ç©ºããƒªã‚¹ãƒˆæŒ¿å…¥
+	// ‹ó‚«ƒŠƒXƒg‘}“ü
 	// EXPECT TRUE
 	TEST(InsertionTest, 9_EmptyInsertion)
 	{
@@ -103,8 +103,8 @@ namespace ListTests
 		EXPECT_TRUE(list.GetSize() == 1);
 	}
 
-	// ãƒãƒ¼ãƒ‰ãŒã‚ã‚‹ãƒªã‚¹ãƒˆã«å…ˆé ­ã§æŒ¿å…¥
-	// å‰ã®å…ˆé ­ãŒ+1ã«ç§»å‹•ã™ã‚‹
+	// ƒm[ƒh‚ª‚ ‚éƒŠƒXƒg‚Éæ“ª‚Å‘}“ü
+	// ‘O‚Ìæ“ª‚ª+1‚ÉˆÚ“®‚·‚é
 	// EXPECT TRUE
 	TEST(InsertionTest, 10_OccupiedHeadInsertion)
 	{
@@ -116,8 +116,8 @@ namespace ListTests
 		EXPECT_TRUE((*list.cBegin()).GetName() == "cake");
 	}
 
-	// ãƒãƒ¼ãƒ‰ãŒã‚ã‚‹ãƒªã‚¹ãƒˆã«æœ«å°¾ã§æŒ¿å…¥
-	// Lastã‚ˆã‚ŠEndã‚’ä½¿ã£ã¦ã€æ–°ã—ã„æœ«å°¾ï¼ˆå‰ã®æœ«å°¾ã«+1ï¼‰ã«ãªã‚‹
+	// ƒm[ƒh‚ª‚ ‚éƒŠƒXƒg‚É––”ö‚Å‘}“ü
+	// Last‚æ‚èEnd‚ğg‚Á‚ÄAV‚µ‚¢––”öi‘O‚Ì––”ö‚É+1j‚É‚È‚é
 	// EXPECT TRUE
 	TEST(InsertionTest, 11_OccupiedTailInsertion)
 	{
@@ -129,7 +129,7 @@ namespace ListTests
 		EXPECT_TRUE((*list.cBegin()).GetName() == "pie");
 	}
 
-	// ãƒãƒ¼ãƒ‰ãŒã‚ã‚‹ãƒªã‚¹ãƒˆã®ä¸­ã§æŒ¿å…¥
+	// ƒm[ƒh‚ª‚ ‚éƒŠƒXƒg‚Ì’†‚Å‘}“ü
 	// EXPECT TRUE
 	TEST(InsertionTest, 12_OccupiedMidInsertion)
 	{
@@ -145,7 +145,7 @@ namespace ListTests
 		EXPECT_TRUE((*it).GetName() == "cake");
 	}
 
-	// ã‚³ãƒ³ã‚¹ãƒˆã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã§æŒ¿å…¥
+	// ƒRƒ“ƒXƒgƒCƒeƒŒ[ƒ^‚Å‘}“ü
 	// EXPECT TRUE
 	TEST(InsertionTest, 13_ConstIteratorInsertion)
 	{
@@ -157,7 +157,7 @@ namespace ListTests
 		EXPECT_TRUE((*list.cBegin()).GetName() == "cake");
 	}
 
-	// ä¸æ­£ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã§æŒ¿å…¥
+	// •s³ƒCƒeƒŒ[ƒ^‚Å‘}“ü
 	// EXPECT FALSE
 	TEST(InsertionTest, 14_InvalidIteratorInsertion)
 	{
@@ -169,10 +169,10 @@ namespace ListTests
 	}
 
 	// ----------------- //
-	// --- ãƒ‡ãƒ¼ã‚¿è§£é™¤ --- //
+	// --- ƒf[ƒ^‰ğœ --- //
 	// ----------------- //
 
-	// ä½•ã‚‚ãªã„ã¨ã“ã‚ã‚’è§£é™¤
+	// ‰½‚à‚È‚¢‚Æ‚±‚ë‚ğ‰ğœ
 	// EXPECT FALSE
 	TEST(DeletionTest, 16_EmptyDeletion)
 	{
@@ -182,8 +182,8 @@ namespace ListTests
 		EXPECT_FALSE(list.GetSize() != 0);
 	}
 
-	// ãƒãƒ¼ãƒ‰äºŒã¤ä»¥ä¸Šãƒªã‚¹ãƒˆã®å…ˆé ­ã‚’è§£é™¤
-	// å…ˆé ­ãŒå¤‰ãˆã‚‹
+	// ƒm[ƒh“ñ‚ÂˆÈãƒŠƒXƒg‚Ìæ“ª‚ğ‰ğœ
+	// æ“ª‚ª•Ï‚¦‚é
 	// EXPECT TRUE
 	TEST(DeletionTest, 17_HeadDeletion)
 	{
@@ -196,8 +196,8 @@ namespace ListTests
 		EXPECT_TRUE((*list.cBegin()).GetName() == "pie");
 	}
 
-	// ãƒãƒ¼ãƒ‰äºŒã¤ä»¥ä¸Šãƒªã‚¹ãƒˆã®æœ«å°¾ã‚’è§£é™¤
-	// æœ«å°¾ãŒå¤‰ãˆã‚‹
+	// ƒm[ƒh“ñ‚ÂˆÈãƒŠƒXƒg‚Ì––”ö‚ğ‰ğœ
+	// ––”ö‚ª•Ï‚¦‚é
 	// EXPECT FALSE
 	TEST(DeletionTest, 18_TailDeletion)
 	{
@@ -208,8 +208,8 @@ namespace ListTests
 		EXPECT_FALSE(list.GetSize() != 0);
 	}
 
-	// ãƒãƒ¼ãƒ‰ãŒä¸‰ã¤ä»¥ä¸Šãƒªã‚¹ãƒˆã®çœŸä¸­ã‚’è§£é™¤
-	// å…ˆé ­ã¨æœ«å°¾ãŒå¤‰ãˆãªã„ãŒã‚µã‚¤ã‚ºãŒå¤‰ã‚ã‚‹
+	// ƒm[ƒh‚ªO‚ÂˆÈãƒŠƒXƒg‚Ì^’†‚ğ‰ğœ
+	// æ“ª‚Æ––”ö‚ª•Ï‚¦‚È‚¢‚ªƒTƒCƒY‚ª•Ï‚í‚é
 	// EXPECT TRUE
 	TEST(DeletionTest, 19_MidDeletion)
 	{
@@ -225,7 +225,7 @@ namespace ListTests
 		EXPECT_TRUE(list.GetSize() == 2);
 	}
 
-	// ã‚³ãƒ³ã‚¹ãƒˆã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã§è§£é™¤
+	// ƒRƒ“ƒXƒgƒCƒeƒŒ[ƒ^‚Å‰ğœ
 	// EXPECT TRUE
 	TEST(DeletionTest, 20_ConstIteratorDeletion)
 	{
@@ -241,7 +241,7 @@ namespace ListTests
 		EXPECT_TRUE((*list.cBegin()).GetName() == "pie");
 	}
 
-	// ä¸æ­£ãªã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ï¼ˆEndï¼‰ã§è§£é™¤
+	// •s³‚ÈƒCƒeƒŒ[ƒ^iEndj‚Å‰ğœ
 	// EXPECT FALSE
 	TEST(DeletionTest, 21_ImproperIteratorDeletion)
 	{
@@ -253,10 +253,10 @@ namespace ListTests
 	}
 	 
 	// -------------------- //
-	// --- å…ˆé ­ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ --- //
+	// --- æ“ªƒCƒeƒŒ[ƒ^ --- //
 	// -------------------- //
 
-	// ç©ºããƒªã‚¹ãƒˆã®å…ˆé ­ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
+	// ‹ó‚«ƒŠƒXƒg‚Ìæ“ªƒCƒeƒŒ[ƒ^
 	// EXPECT DUMMY
 	TEST(HeadIteratorTest, 23_EmptyList)
 	{
@@ -268,7 +268,7 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), dummy.GetName());
 	}
 
-	// ãƒãƒ¼ãƒ‰ä¸€å€‹ã®ãƒªã‚¹ãƒˆï¼ˆçµ¶å¯¾å…ˆé ­ã«ãªã‚‹ï¼‰
+	// ƒm[ƒhˆêŒÂ‚ÌƒŠƒXƒgiâ‘Îæ“ª‚É‚È‚éj
 	// EXPECT HEAD (DATA1)
 	TEST(HeadIteratorTest, 24_SingleEntry)
 	{
@@ -281,8 +281,8 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), data1.GetName());
 	}
 
-	// äºŒã¤ã‚’å…ˆé ­ã§æŒ¿å…¥ã™ã‚‹
-	// å‰ã®å…ˆé ­ã‚’ç§»å‹•ã™ã‚‹
+	// “ñ‚Â‚ğæ“ª‚Å‘}“ü‚·‚é
+	// ‘O‚Ìæ“ª‚ğˆÚ“®‚·‚é
 	// EXPECT HEAD (DATA1)
 	TEST(HeadIteratorTest, 25_DoubleEntry)
 	{
@@ -297,7 +297,7 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), data1.GetName());
 	}
 	
-	// å®¢æŒ¿å…¥å ´æ‰€ãƒã‚§ãƒƒã‚¯
+	// ‹q‘}“üêŠƒ`ƒFƒbƒN
 	// EXPECT HEAD (DATA1)
 	TEST(HeadIteratorTest, 26_EntryAndCall)
 	{
@@ -324,7 +324,7 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), data1.GetName());
 	}
 
-	// å…ˆé ­ã‹ã‚‰è§£é™¤
+	// æ“ª‚©‚ç‰ğœ
 	// EXPECT HEAD (variable)
 	TEST(HeadIteratorTest, 27_DeleteAndCall)
 	{
@@ -371,11 +371,11 @@ namespace ListTests
 	}
 	
 	// --------------------------- //
-	// --- å…ˆé ­ã‚³ãƒ³ã‚¹ãƒˆã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ --- //
+	// --- æ“ªƒRƒ“ƒXƒgƒCƒeƒŒ[ƒ^ --- //
 	// --------------------------- //
-	// ä»¥ä¸‹ã®ãƒ†ã‚¹ãƒˆã¯ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚ˆã‚Šã‚³ãƒ³ã‚¹ãƒˆã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’ä½¿ã†
+	// ˆÈ‰º‚ÌƒeƒXƒg‚ÍƒCƒeƒŒ[ƒ^‚æ‚èƒRƒ“ƒXƒgƒCƒeƒŒ[ƒ^‚ğg‚¤
 
-	// ç©ºããƒªã‚¹ãƒˆã®å…ˆé ­ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
+	// ‹ó‚«ƒŠƒXƒg‚Ìæ“ªƒCƒeƒŒ[ƒ^
 	// EXPECT DUMMY
 	TEST(HeadConstIteratorTest, 29_EmptyList)
 	{
@@ -387,7 +387,7 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), dummy.GetName());
 	}
 
-	// ãƒãƒ¼ãƒ‰ä¸€å€‹ã®ãƒªã‚¹ãƒˆï¼ˆçµ¶å¯¾å…ˆé ­ã«ãªã‚‹ï¼‰
+	// ƒm[ƒhˆêŒÂ‚ÌƒŠƒXƒgiâ‘Îæ“ª‚É‚È‚éj
 	// EXPECT HEAD (DATA1)
 	TEST(HeadConstIteratorTest, 30_SingleEntry)
 	{
@@ -400,8 +400,8 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), data1.GetName());
 	}
 
-	// äºŒã¤ã‚’å…ˆé ­ã§æŒ¿å…¥ã™ã‚‹
-	// å‰ã®å…ˆé ­ã‚’ç§»å‹•ã™ã‚‹
+	// “ñ‚Â‚ğæ“ª‚Å‘}“ü‚·‚é
+	// ‘O‚Ìæ“ª‚ğˆÚ“®‚·‚é
 	// EXPECT HEAD (DATA1)
 	TEST(HeadConstIteratorTest, 31_DoubleEntry)
 	{
@@ -416,7 +416,7 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), data1.GetName());
 	}
 
-	// å®¢æŒ¿å…¥å ´æ‰€ãƒã‚§ãƒƒã‚¯
+	// ‹q‘}“üêŠƒ`ƒFƒbƒN
 	// EXPECT HEAD (DATA1)
 	TEST(HeadConstIteratorTest, 32_EntryAndCall)
 	{
@@ -443,7 +443,7 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), data1.GetName());
 	}
 
-	// å…ˆé ­ã‹ã‚‰è§£é™¤
+	// æ“ª‚©‚ç‰ğœ
 	// EXPECT HEAD (variable)
 	TEST(HeadConstIteratorTest, 33_DeleteAndCall)
 	{
@@ -490,13 +490,13 @@ namespace ListTests
 	}
 
 	// -------------------- //
-	// --- æœ«å°¾ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ --- //
+	// --- ––”öƒCƒeƒŒ[ƒ^ --- //
 	// -------------------- //
-	// ãƒãƒ¼ãƒˆï¼š Last() != End()
-	// Lastã¯æœ€å¾Œã®ãƒãƒ¼ãƒ‰
-	// End ã¯æœ€å¾Œã®ãƒãƒ¼ãƒ‰+1
+	// ƒm[ƒgF Last() != End()
+	// Last‚ÍÅŒã‚Ìƒm[ƒh
+	// End ‚ÍÅŒã‚Ìƒm[ƒh+1
 
-	// ç©ºããƒªã‚¹ãƒˆã®æœ«å°¾ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
+	// ‹ó‚«ƒŠƒXƒg‚Ì––”öƒCƒeƒŒ[ƒ^
 	// EXPECT DUMMY
 	TEST(EndIteratorTest, 35_EmptyList)
 	{
@@ -508,7 +508,7 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), dummy.GetName());
 	}
 
-	// ãƒãƒ¼ãƒ‰ä¸€å€‹ã®ãƒªã‚¹ãƒˆï¼ˆçµ¶å¯¾æœ«å°¾ã«ãªã‚‹ï¼‰
+	// ƒm[ƒhˆêŒÂ‚ÌƒŠƒXƒgiâ‘Î––”ö‚É‚È‚éj
 	// EXPECT TAIL (data1)
 	TEST(EndIteratorTest, 36_SingleEntry)
 	{
@@ -521,8 +521,8 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), data1.GetName());
 	}
 
-	// äºŒã¤ã‚’æœ«å°¾ã§æŒ¿å…¥ã™ã‚‹
-	// å‰ã®æœ«å°¾ã‚’ç§»å‹•ã™ã‚‹
+	// “ñ‚Â‚ğ––”ö‚Å‘}“ü‚·‚é
+	// ‘O‚Ì––”ö‚ğˆÚ“®‚·‚é
 	// EXPECT TAIL (data2)
 	TEST(EndIteratorTest, 37_DoubleEntry)
 	{
@@ -537,7 +537,7 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), data2.GetName());
 	}
 
-	// å®¢æŒ¿å…¥å ´æ‰€ãƒã‚§ãƒƒã‚¯
+	// ‹q‘}“üêŠƒ`ƒFƒbƒN
 	// EXPECT TAIL (DATA1)
 	TEST(EndIteratorTest, 38_EntryAndCall)
 	{
@@ -564,8 +564,8 @@ namespace ListTests
 		EXPECT_EQ((*it).GetName(), data1.GetName());
 	}
 
-	// å››ã¤ã‚’æœ«å°¾ã§è³¼å…¥ã™ã‚‹
-	// æœ«å°¾ã‹ã‚‰è§£é™¤
+	// l‚Â‚ğ––”ö‚Åw“ü‚·‚é
+	// ––”ö‚©‚ç‰ğœ
 	// EXPECT TAIL (variable)
 	TEST(EndIteratorTest, 39_DeleteAndCall)
 	{
@@ -612,11 +612,11 @@ namespace ListTests
 	}
 
 	// --------------------------- //
-	// --- æœ«å°¾ã‚³ãƒ³ã‚¹ãƒˆã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ --- //
+	// --- ––”öƒRƒ“ƒXƒgƒCƒeƒŒ[ƒ^ --- //
 	// --------------------------- //
-	// ä»¥ä¸‹ã®ãƒ†ã‚¹ãƒˆã¯ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚ˆã‚Šã‚³ãƒ³ã‚¹ãƒˆã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ãŒä½¿ã†
+	// ˆÈ‰º‚ÌƒeƒXƒg‚ÍƒCƒeƒŒ[ƒ^‚æ‚èƒRƒ“ƒXƒgƒCƒeƒŒ[ƒ^‚ªg‚¤
 
-	// ç©ºããƒªã‚¹ãƒˆã®æœ«å°¾ã‚³ãƒ³ã‚¹ãƒˆã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
+	// ‹ó‚«ƒŠƒXƒg‚Ì––”öƒRƒ“ƒXƒgƒCƒeƒŒ[ƒ^
 	TEST(EndConstIteratorTest, 41_EmptyList)
 	{
 		DoublyLinkedList list;
@@ -627,7 +627,7 @@ namespace ListTests
 		EXPECT_EQ((*cit).GetName(), dummy.GetName());
 	}
 
-	// ãƒãƒ¼ãƒ‰ä¸€å€‹ã®ãƒªã‚¹ãƒˆï¼ˆçµ¶å¯¾æœ«å°¾ã«ãªã‚‹ï¼‰
+	// ƒm[ƒhˆêŒÂ‚ÌƒŠƒXƒgiâ‘Î––”ö‚É‚È‚éj
 	// EXPECT TAIL (data1)
 	TEST(EndConstIteratorTest, 42_SingleEntry)
 	{
@@ -640,8 +640,8 @@ namespace ListTests
 		EXPECT_EQ((*cit).GetName(), data1.GetName());
 	}
 
-	// äºŒã¤ã‚’æœ«å°¾ã§æŒ¿å…¥ã™ã‚‹
-	// å‰ã®æœ«å°¾ã‚’ç§»å‹•ã™ã‚‹
+	// “ñ‚Â‚ğ––”ö‚Å‘}“ü‚·‚é
+	// ‘O‚Ì––”ö‚ğˆÚ“®‚·‚é
 	// EXPECT TAIL (data1)
 	TEST(EndConstIteratorTest, 43_DoubleEntry)
 	{
@@ -656,7 +656,7 @@ namespace ListTests
 		EXPECT_EQ((*cit).GetName(), data1.GetName());
 	}
 
-	// å®¢æŒ¿å…¥å ´æ‰€
+	// ‹q‘}“üêŠ
 	// EXPECT TAIL (data1)
 	TEST(EndConstIteratorTest, 44_EntryAndCall)
 	{
@@ -684,8 +684,8 @@ namespace ListTests
 		EXPECT_EQ((*cit).GetName(), data1.GetName());
 	}
 
-	// å››ã¤ã‚’æœ«å°¾ã§è³¼å…¥ã™ã‚‹
-	// æœ«å°¾ã‹ã‚‰è§£é™¤
+	// l‚Â‚ğ––”ö‚Åw“ü‚·‚é
+	// ––”ö‚©‚ç‰ğœ
 	// EXPECT TAIL (variable)
 	TEST(EndConstIteratorTest, 45_DeleteAndCall)
 	{
