@@ -71,6 +71,7 @@ namespace ListTests
 	}
 
 	// ––”ö+1‚ğ‰ğœi¸”sj
+	// EXPECT 1
 	TEST(AssignmentTest, 6_DeletionFailure)
 	{
 		DoublyLinkedList list;
