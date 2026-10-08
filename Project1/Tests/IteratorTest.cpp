@@ -5,13 +5,13 @@
 namespace IteratorTests
 {
 	// -------------------- //
-	// --- ƒCƒeƒŒ[ƒ^æ“¾ --- //
+	// --- ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿å–å¾— --- //
 	// -------------------- //
 
-	// ƒCƒeƒŒ[ƒ^‚Ìƒpƒ‰ƒ[ƒ^[‚ª‚È‚¢
+	// ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ãŒãªã„
 	// EXPECT NE
 	// EXPECT SIZE 0
-	TEST(RetrievalTest, 0_UnitializedIterator)
+	TEST(RetrievalTest, 0_UnreferencedIterator)
 	{
 		DoublyLinkedList list;
 		ScoreData data1(1, "pie");
@@ -29,8 +29,8 @@ namespace IteratorTests
 		EXPECT_NE(list.cBegin(), it);
 	}
 
-	// ƒCƒeƒŒ[ƒ^‚Åƒf[ƒ^‚ğæ“¾‚µ‚ÄAã‘‚«
-	// EXPECT TRUE (V‚µ‚¢stringj
+	// ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã§ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã—ã¦ã€ä¸Šæ›¸ã
+	// EXPECT TRUE (æ–°ã—ã„stringï¼‰
 	TEST(RetrievalTest, 1_IteratorValueAssignment)
 	{
 		DoublyLinkedList list;
@@ -40,8 +40,8 @@ namespace IteratorTests
 		EXPECT_TRUE((*list.Begin()).GetName() == "ARAGHAO");
 	}
 
-	// ‹ó‚«ƒŠƒXƒgæ“¾
-	// æ“ª == ––”ö
+	// ç©ºããƒªã‚¹ãƒˆå–å¾—
+	// å…ˆé ­ == æœ«å°¾
 	// EXPECT HEAD == TAIL
 	TEST(RetrievalTest, 3_EmptyList)
 	{
@@ -50,7 +50,7 @@ namespace IteratorTests
 		ASSERT_EQ(list.cBegin(), list.cEnd());
 	}
 
-	// End‚Ådummyƒm[ƒh‚ğæ“¾
+	// Endã§dummyãƒãƒ¼ãƒ‰ã‚’å–å¾—
 	// EXPECT DUMMY
 	TEST(RetrievalTest, 4_EndCall)
 	{
@@ -62,13 +62,13 @@ namespace IteratorTests
 	}
 
 	// ----------------------- //
-	// --- ––”öŒü‚¯ƒCƒeƒŒ[ƒ^ --- //
+	// --- æœ«å°¾å‘ã‘ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ --- //
 	// ----------------------- //
 
-	// ƒCƒeƒŒ[ƒ^‚Ìƒpƒ‰ƒ[ƒ^[‚Í‚È‚¢‚ª ++
+	// ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã¯ãªã„ãŒ ++
 	// EXPECT SAME
-	// EXPECT NE (ƒŠƒXƒg‚ÌƒCƒeƒŒ[ƒ^)
-	TEST(ToTailTest, 5_UnitializedIterator)
+	// EXPECT NE (ãƒªã‚¹ãƒˆã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿)
+	TEST(ToTailTest, 5_UnreferencedIterator++)
 	{
 		DoublyLinkedList list;
 		DoublyLinkedList::Iterator it(nullptr, nullptr);
@@ -82,8 +82,8 @@ namespace IteratorTests
 		EXPECT_NE(it, list.cEnd());
 	}
 
-	// ‹ó‚«ƒŠƒXƒg‚Ìæ“ª‚©‚ç––”ö‚ÉˆÚ“®
-	// ++æ“ª == ––”ö
+	// ç©ºããƒªã‚¹ãƒˆã®å…ˆé ­ã‹ã‚‰æœ«å°¾ã«ç§»å‹•
+	// ++å…ˆé ­ == æœ«å°¾
 	// EXPECT ++HEAD == TAIL
 	TEST(ToTailTest, 6_EmptyListIterate)
 	{
@@ -92,8 +92,8 @@ namespace IteratorTests
 		EXPECT_EQ(++list.cBegin(), list.cEnd());
 	}
 
-	// ‹ó‚«ƒŠƒXƒg‚Ì––”ö‚©‚ç––”ö+1‚ÉˆÚ“®
-	// ++––”ö == ––”ö
+	// ç©ºããƒªã‚¹ãƒˆã®æœ«å°¾ã‹ã‚‰æœ«å°¾+1ã«ç§»å‹•
+	// ++æœ«å°¾ == æœ«å°¾
 	// EXPECT ++TAIL == TAIL
 	TEST(ToTailTest, 7_TailIterateForward)
 	{
@@ -102,8 +102,8 @@ namespace IteratorTests
 		EXPECT_EQ(++list.cEnd(), list.cEnd());
 	}
 
-	// “ñ‚ÂˆÈã‚ÌƒŠƒXƒg‚ğŒã‚ëŒü‚«‚ÉƒCƒeƒŒ[ƒ^‚ğŒÄ‚Ô
-	// ‡”Ô‚ÆƒCƒeƒŒ[ƒ^Šm”F
+	// äºŒã¤ä»¥ä¸Šã®ãƒªã‚¹ãƒˆã‚’å¾Œã‚å‘ãã«ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’å‘¼ã¶
+	// é †ç•ªã¨ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ç¢ºèª
 	// EXPECT data2 THEN data1
 	TEST(ToTailTest, 8_TwoElementIterateForward)
 	{
@@ -123,9 +123,9 @@ namespace IteratorTests
 		EXPECT_EQ((*it).GetScore(), data1.GetScore());
 	}
 
-	// ++operatorƒeƒXƒg
-	// ƒm[ƒh‚Ì—¼–Ê‚àŠm”F
-	// ++‚Í ‘‰Á[„return 
+	// ++operatorãƒ†ã‚¹ãƒˆ
+	// ãƒãƒ¼ãƒ‰ã®ä¸¡é¢ã‚‚ç¢ºèª
+	// ++ã¯ å¢—åŠ ãƒ¼ï¼return 
 	TEST(ToTailTest, 9_PrefixIteratorIncrement)
 	{
 		DoublyLinkedList list;
@@ -149,9 +149,9 @@ namespace IteratorTests
 		EXPECT_TRUE((*(++cit2)).GetName() == data1.GetName());
 	}
 
-	// ++operator(int)ƒeƒXƒg
-	// ƒm[ƒh‚Ì—¼–Ê‚àŠm”F
-	// ++(int)‚Í return [„ ‘‰Á
+	// ++operator(int)ãƒ†ã‚¹ãƒˆ
+	// ãƒãƒ¼ãƒ‰ã®ä¸¡é¢ã‚‚ç¢ºèª
+	// ++(int)ã¯ return ãƒ¼ï¼ å¢—åŠ 
 	TEST(ToTailTest, 10_PostfixIteratorIncrement)
 	{
 		DoublyLinkedList list;
@@ -176,13 +176,13 @@ namespace IteratorTests
 	}
 
 	// ----------------------- //
-	// --- æ“ªŒü‚¯ƒCƒeƒŒ[ƒ^ --- //
+	// --- å…ˆé ­å‘ã‘ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ --- //
 	// ----------------------- //
 
-	// ƒŠƒXƒg‚ª‘¶İ‚µ‚È‚¢i€‚Êj
+	// ãƒªã‚¹ãƒˆãŒå­˜åœ¨ã—ãªã„ï¼ˆæ­»ã¬ï¼‰
 	// EXPECT SAME
-	// EXPECT NE (ƒŠƒXƒg‚ÌƒCƒeƒŒ[ƒ^)
-	TEST(ToHeadTest, 11_UnitializedIterator)
+	// EXPECT NE (ãƒªã‚¹ãƒˆã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿)
+	TEST(ToHeadTest, 11_UnreferencedIterator--)
 	{
 		DoublyLinkedList list;
 		DoublyLinkedList::Iterator it(nullptr, nullptr);
@@ -196,8 +196,8 @@ namespace IteratorTests
 		EXPECT_NE(it, list.cEnd());
 	}
 
-	// ‹ó‚«ƒŠƒXƒg‚Ì––”ö‚©‚çæ“ª‚ÉˆÚ“®
-	// --––”ö == æ“ª
+	// ç©ºããƒªã‚¹ãƒˆã®æœ«å°¾ã‹ã‚‰å…ˆé ­ã«ç§»å‹•
+	// --æœ«å°¾ == å…ˆé ­
 	// EXPECT ++TAIL == HEAD
 	TEST(ToHeadTest, 12_EmptyList)
 	{
@@ -206,8 +206,8 @@ namespace IteratorTests
 		EXPECT_EQ(--list.cLast(), list.cBegin());
 	}
 
-	// ‹ó‚«ƒŠƒXƒg‚Ìæ“ª‚©‚çæ“ª-1‚ÉˆÚ“®
-	// --æ“ª == æ“ª
+	// ç©ºããƒªã‚¹ãƒˆã®å…ˆé ­ã‹ã‚‰å…ˆé ­-1ã«ç§»å‹•
+	// --å…ˆé ­ == å…ˆé ­
 	// EXPECT --HEAD == HEAD
 	TEST(ToHeadTest, 13_HeadIterateBackward)
 	{
@@ -216,8 +216,8 @@ namespace IteratorTests
 		EXPECT_EQ(--list.cBegin(), list.cBegin());
 	}
 
-	// “ñ‚ÂˆÈã‚ÌƒŠƒXƒg‚ğ‘OŒü‚«‚ÉƒCƒeƒŒ[ƒ^‚ğŒÄ‚Ô
-	// ‡”Ô‚ÆƒCƒeƒŒ[ƒ^Šm”F
+	// äºŒã¤ä»¥ä¸Šã®ãƒªã‚¹ãƒˆã‚’å‰å‘ãã«ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’å‘¼ã¶
+	// é †ç•ªã¨ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ç¢ºèª
 	// EXPECT data1 THEN data2
 	TEST(ToHeadTest, 14_TwoElementIterateBackward)
 	{
@@ -237,9 +237,9 @@ namespace IteratorTests
 		EXPECT_EQ((*it).GetScore(), data2.GetScore());
 	}
 
-	// --operatorƒeƒXƒg
-	// ƒm[ƒh‚Ì—¼–Ê‚àŠm”F
-	// --‚Í Œ¸­[„return 
+	// --operatorãƒ†ã‚¹ãƒˆ
+	// ãƒãƒ¼ãƒ‰ã®ä¸¡é¢ã‚‚ç¢ºèª
+	// --ã¯ æ¸›å°‘ãƒ¼ï¼return 
 	TEST(ToHeadTest, 15_PrefixIteratorDecrement)
 	{
 		DoublyLinkedList list;
@@ -263,9 +263,9 @@ namespace IteratorTests
 		EXPECT_TRUE((*(--cit2)).GetName() == data1.GetName());
 	}
 
-	// --operator(int)ƒeƒXƒg
-	// ƒm[ƒh‚Ì—¼–Ê‚àŠm”F
-	// --(int)‚Í return [„ Œ¸­
+	// --operator(int)ãƒ†ã‚¹ãƒˆ
+	// ãƒãƒ¼ãƒ‰ã®ä¸¡é¢ã‚‚ç¢ºèª
+	// --(int)ã¯ return ãƒ¼ï¼ æ¸›å°‘
 	TEST(ToHeadTest, 16_PostfixIteratorDecrement)
 	{
 		DoublyLinkedList list;
@@ -290,11 +290,11 @@ namespace IteratorTests
 	}
 
 	// ----------------------------------- //
-	// --- ƒCƒeƒŒ[ƒ^‚ÌƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^ --- //
+	// --- ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ --- //
 	// ----------------------------------- //
 
-	// ƒRƒs[ƒCƒeƒŒ[ƒ^‚ğƒ`ƒFƒbƒN
-	// æ‚¸ƒRƒs[‚ğƒ`ƒFƒbƒNAŸƒRƒs[‚Ì++‚àƒ`ƒFƒbƒN
+	// ã‚³ãƒ”ãƒ¼ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’ãƒã‚§ãƒƒã‚¯
+	// å…ˆãšã‚³ãƒ”ãƒ¼ã‚’ãƒã‚§ãƒƒã‚¯ã€æ¬¡ã‚³ãƒ”ãƒ¼ã®++ã‚‚ãƒã‚§ãƒƒã‚¯
 	// EXPECT TRUE THEN FALSE
 	TEST(IteratorCopy, 18_CopyConstructor)
 	{
@@ -312,12 +312,12 @@ namespace IteratorTests
 	}
 
 	// -------------------------------- //
-	// --- ƒCƒeƒŒ[ƒ^‚ğƒCƒeƒŒ[ƒ^‚É‘ã“ü --- //
+	// --- ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã«ä»£å…¥ --- //
 	// -------------------------------- //
 
 	// operator=
-	// ƒCƒeƒŒ[ƒ^‚ğ‘¼‚ÌƒCƒeƒŒ[ƒ^‚É‘ã“üƒ`ƒFƒbƒN
-	// æ‚¸‘ã“ü‚ğƒ`ƒFƒbƒNAŸ‘ã“ü‚µ‚½‚Ì++‚àƒ`ƒFƒbƒN
+	// ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’ä»–ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã«ä»£å…¥ãƒã‚§ãƒƒã‚¯
+	// å…ˆãšä»£å…¥ã‚’ãƒã‚§ãƒƒã‚¯ã€æ¬¡ä»£å…¥ã—ãŸã®++ã‚‚ãƒã‚§ãƒƒã‚¯
 	// EXPECT TRUE THEN FALSE
 	TEST(IteratorToIterator, 20_Assignment)
 	{
@@ -335,10 +335,10 @@ namespace IteratorTests
 	}
 
 	// ------------------- //
-	// --- ƒCƒeƒŒ[ƒ^ == --- //
+	// --- ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ == --- //
 	// ------------------- //
 
-	// ‹ó‚«ƒŠƒXƒgæ“ª‚Æ––”ö‚ğ”ä‚×
+	// ç©ºããƒªã‚¹ãƒˆå…ˆé ­ã¨æœ«å°¾ã‚’æ¯”ã¹
 	// EXPECT TRUE
 	TEST(IteratorComparisonSimilar, 21_EmptyHeadTail)
 	{
@@ -348,7 +348,7 @@ namespace IteratorTests
 		EXPECT_TRUE(it1 == it2);
 	}
 
-	// “¯‚¶ˆêˆÊ‚ÌƒCƒeƒŒ[ƒ^
+	// åŒã˜ä¸€ä½ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
 	// EXPECT TRUE
 	TEST(IteratorComparisonSimilar, 22_Same)
 	{
@@ -360,7 +360,7 @@ namespace IteratorTests
 		EXPECT_TRUE(it1 == it2);
 	}
 
-	// •ÊˆêˆÊ‚ÌƒCƒeƒŒ[ƒ^
+	// åˆ¥ä¸€ä½ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
 	// EXPECT FALSE
 	TEST(IteratorComparisonSimilar, 23_Different)
 	{
@@ -373,10 +373,10 @@ namespace IteratorTests
 	}
 
 	// ------------------- //
-	// --- ƒCƒeƒŒ[ƒ^ != --- //
+	// --- ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ != --- //
 	// ------------------- //
 	
-	// ‹ó‚«ƒŠƒXƒgæ“ª‚Æ––”ö‚ğ”ä‚×
+	// ç©ºããƒªã‚¹ãƒˆå…ˆé ­ã¨æœ«å°¾ã‚’æ¯”ã¹
 	// EXPECT FALSE
 	TEST(IteratorComparisonDifferent, 24_EmptyHeadTail)
 	{
@@ -386,7 +386,7 @@ namespace IteratorTests
 		EXPECT_FALSE(it1 != it2);
 	}
 
-	// “¯‚¶ˆêˆÊ‚ÌƒCƒeƒŒ[ƒ^
+	// åŒã˜ä¸€ä½ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
 	// EXPECT FALSE
 	TEST(IteratorComparisonDifferent, 25_Same)
 	{
@@ -398,7 +398,7 @@ namespace IteratorTests
 		EXPECT_FALSE(it1 != it2);
 	}
 
-	// •ÊˆêˆÊ‚ÌƒCƒeƒŒ[ƒ^
+	// åˆ¥ä¸€ä½ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
 	// EXPECT TRUE
 	TEST(IteratorComparisonDifferent, 26_Different)
 	{
