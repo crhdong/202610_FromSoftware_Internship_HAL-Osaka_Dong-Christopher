@@ -8,21 +8,25 @@ namespace IteratorTests
 	// --- イテレータ取得 --- //
 	// -------------------- //
 
-	// リストが存在しない（死ぬ）
-	// ASSERT DEATH (エラーボックス２個）
-	TEST(RetrievalTest, 0_NoList)
+	// イテレータのパラメーターがない
+	// EXPECT NE
+	// EXPECT SIZE 0
+	TEST(RetrievalTest, 0_UnitializedIterator)
 	{
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList* list;
-				list->Begin();
-			}, "");
+		DoublyLinkedList list;
+		ScoreData data1(1, "pie");
+		DoublyLinkedList::Iterator it(nullptr, nullptr);
 
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList* list;
-				list->cBegin();
-			}, "");
+		list.Insert(it, data1);
+
+		EXPECT_NE(list.Begin(), it);
+		EXPECT_NE(list.cBegin(), it);
+		EXPECT_EQ(list.GetSize(), 0);
+
+		list.Insert(list.Begin(), data1);
+
+		EXPECT_NE(list.Begin(), it);
+		EXPECT_NE(list.cBegin(), it);
 	}
 
 	// イテレータでデータを取得して、上書き
@@ -61,20 +65,21 @@ namespace IteratorTests
 	// --- 末尾向けイテレータ --- //
 	// ----------------------- //
 
-	// リストが存在しないでも ++（死ぬ）
-	// ASSERT DEATH
-	TEST(ToTailTest, 5_NoListIterate)
+	// イテレータのパラメーターはないが ++
+	// EXPECT SAME
+	// EXPECT NE (リストのイテレータ)
+	TEST(ToTailTest, 5_UnitializedIterator)
 	{
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList * list;
-				++list->Begin();
-			}, "");
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList * list;
-				++list->cBegin();
-			}, "");
+		DoublyLinkedList list;
+		DoublyLinkedList::Iterator it(nullptr, nullptr);
+		DoublyLinkedList::Iterator it2(nullptr, nullptr);
+
+		EXPECT_EQ(it, ++it);
+		EXPECT_EQ(it, it2);
+		EXPECT_NE(it, list.Begin());
+		EXPECT_NE(it, list.End());
+		EXPECT_NE(it, list.cBegin());
+		EXPECT_NE(it, list.cEnd());
 	}
 
 	// 空きリストの先頭から末尾に移動
@@ -175,19 +180,20 @@ namespace IteratorTests
 	// ----------------------- //
 
 	// リストが存在しない（死ぬ）
-	// ASSERT DEATH (エラーボックス２個）
-	TEST(ToHeadTest, 11_NoListIterate)
+	// EXPECT SAME
+	// EXPECT NE (リストのイテレータ)
+	TEST(ToHeadTest, 11_UnitializedIterator)
 	{
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList * list;
-				--list->End();
-			}, "");
-		ASSERT_DEATH(
-			{
-				DoublyLinkedList * list;
-				--list->cEnd();
-			}, "");
+		DoublyLinkedList list;
+		DoublyLinkedList::Iterator it(nullptr, nullptr);
+		DoublyLinkedList::Iterator it2(nullptr, nullptr);
+
+		EXPECT_EQ(it, --it);
+		EXPECT_EQ(it, it2);
+		EXPECT_NE(it, list.Begin());
+		EXPECT_NE(it, list.End());
+		EXPECT_NE(it, list.cBegin());
+		EXPECT_NE(it, list.cEnd());
 	}
 
 	// 空きリストの末尾から先頭に移動

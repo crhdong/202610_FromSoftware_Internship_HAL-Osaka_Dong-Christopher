@@ -35,8 +35,7 @@ public:
 		const DoublyLinkedList* owner;
 	public:
 		ConstIterator(const Node* node, const DoublyLinkedList* list)
-			: current(node), owner(list) {
-		}
+			: current(node), owner(list) { }
 		ConstIterator(const ConstIterator& other)
 			: current(other.current), owner(other.owner) { }
 		ConstIterator(const Iterator&) = delete;
@@ -88,7 +87,7 @@ public:
 	};
 	class Iterator : public ConstIterator
 	{
-	public:
+	public:	
 		Iterator(Node* node, const DoublyLinkedList* owner)
 			: ConstIterator(node, owner) { }
 		ScoreData& operator*() { return const_cast<Node*>(current)->GetData(); }
