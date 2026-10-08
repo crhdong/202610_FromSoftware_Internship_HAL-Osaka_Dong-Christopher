@@ -88,8 +88,6 @@ public:
 	};
 	class Iterator : public ConstIterator
 	{
-	protected:
-		const DoublyLinkedList* owner;
 	public:
 		Iterator(Node* node, const DoublyLinkedList* owner)
 			: ConstIterator(node, owner) { }
