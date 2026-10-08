@@ -7,9 +7,9 @@
 #define DLLCIt DoublyLinkedList<T>::ConstIterator
 #define DLLIt DoublyLinkedList<T>::Iterator
 
-// -------------
-// --- ノード ---
-// -------------
+// --------------- //
+// ---　ノード　--- //
+// --------------- //
 
 // コンストラクタ
 template <typename T>
@@ -46,9 +46,9 @@ void DLLN::SetPrev(Node* node) { prev = node; }
 TEMPLATE
 void DLLN::SetNext(Node* node) { next = node; }
 
-// -----------------------
-// --- コンストイテレータ ---
-// -----------------------
+// ------------------------ //
+// --- コンストイテレータ　--- // 
+// ------------------------ //
 
 // --- コンストラクタ ---
 
@@ -141,9 +141,9 @@ bool DLLCIt::operator!=(const ConstIterator& other) const
 	return current != other.current;
 }
 
-// -----------------
-// --- イテレータ ---
-// -----------------
+// ------------------ //
+// ---　イテレータ　--- //
+// ------------------ //
 
 // コンストラクタ
 
@@ -201,9 +201,9 @@ typename DLLIt DLLIt::operator--(int)
 	return temp;
 }
 
-// ------------------------
-// --- DoublyLinkedList ---
-// ------------------------
+// ------------------------ //
+// --- DoublyLinkedList --- //
+// ------------------------ //
 
 // --- コンストラクタ ---
 template <typename T>
