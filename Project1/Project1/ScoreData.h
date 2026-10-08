@@ -12,6 +12,9 @@ private:
 public:
 
 	// コンストラクタ
+	ScoreData()
+		: score(-1), name("") {
+	}
 	ScoreData(int i, const std::string& s)
 		: score(i), name(s) { }
 

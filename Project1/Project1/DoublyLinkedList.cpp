@@ -1,10 +1,17 @@
 #include "DoublyLinkedList.h"
 
-// コンストラクタとディストラクタ
 
-// ノートdummyは不良データ
+// -------------------- //
+// --- コンストラクタ --- //
+// -------------------- //
+// コンストラクタとディストラクタ
+// dummyノードは (0, "")
 DoublyLinkedList::DoublyLinkedList()
-	: dummy(ScoreData(0, "")), head(&dummy), tail(&dummy), count(0) { }
+	: dummy(ScoreData(0, "")), head(&dummy), tail(&dummy), count(0) 
+{ 
+	dummy.SetNext(&dummy);
+	dummy.SetPrev(&dummy);
+}
 DoublyLinkedList::~DoublyLinkedList()
 {
 	Node* cur = head;
@@ -16,7 +23,9 @@ DoublyLinkedList::~DoublyLinkedList()
 	}
 }
 
-// --- プライベート用 ---
+// -------------------- //
+// --- プライベート用 --- //
+// -------------------- //
 // プライベート用の関数
 // 呼びたいならInsert()またはDelete()を呼んでください
 // もしposition == nullptrの場合、return
@@ -101,7 +110,9 @@ void DoublyLinkedList::DeleteAt(Node* position)
 	count--;
 }
 
-// --- ノード数 ---
+// --------------- //
+// --- ノード数 --- //
+// --------------- //
 // ノードの数を返す
 // dummyのノードは計算しない
 int DoublyLinkedList::GetSize() const
@@ -109,17 +120,22 @@ int DoublyLinkedList::GetSize() const
 	return count;
 }
 
-// --- ノード挿入と解除 ---
+// ---------------------- //
+// --- ノード挿入と解除 --- //
+// ---------------------- //
+
 // イテレータ一位の前に新しいノードを挿入する
 // count++
 // nullptrとdummyが渡した場合、新しい末尾になる
 // 不良データが追加できない
 void DoublyLinkedList::Insert(ConstIterator position, const ScoreData& data)
 {
+	if (position.GetOwner() != this) return;
 	InsertAt(const_cast<Node*>(position.current), data);
 }
 void DoublyLinkedList::Insert(Iterator position, const ScoreData& data) 
 { 
+	if (position.GetOwner() != this) return;
 	InsertAt(const_cast<Node*>(position.current), data);
 }
 
@@ -128,26 +144,31 @@ void DoublyLinkedList::Insert(Iterator position, const ScoreData& data)
 // nullptrとdummyが渡した場合、直ぐreturn
 void DoublyLinkedList::Delete(ConstIterator position)
 {
+	if (position.GetOwner() != this) return;
 	DeleteAt(const_cast<Node*>(position.current));
 }
 void DoublyLinkedList::Delete(Iterator position)
 {
+	if (position.GetOwner() != this) return;
 	DeleteAt(const_cast<Node*>(position.current));
 }
 
-// --- イテレータ・コンストイテレータ ---
-
+// ---------------------------------- //
+// --- イテレータ・コンストイテレータ --- //
+// ---------------------------------- //
 // Beginは先頭のイテレータを返す
 // Last は末尾のイテレータを返す
 // End  は末尾 + 1 のイテレータを返す
-DoublyLinkedList::Iterator DoublyLinkedList::Begin() { return Iterator(head); }
-DoublyLinkedList::ConstIterator DoublyLinkedList::cBegin() const { return ConstIterator(head); }
-DoublyLinkedList::Iterator DoublyLinkedList::Last() { return Iterator(tail); }
-DoublyLinkedList::ConstIterator DoublyLinkedList::cLast() const { return ConstIterator(tail); }
-DoublyLinkedList::Iterator DoublyLinkedList::End() { return Iterator(&dummy); }
-DoublyLinkedList::ConstIterator DoublyLinkedList::cEnd() const { return ConstIterator(&dummy); }
+DoublyLinkedList::Iterator DoublyLinkedList::Begin() { return Iterator(head, this); }
+DoublyLinkedList::ConstIterator DoublyLinkedList::cBegin() const { return ConstIterator(head, this); }
+DoublyLinkedList::Iterator DoublyLinkedList::Last() { return Iterator(tail, this); }
+DoublyLinkedList::ConstIterator DoublyLinkedList::cLast() const { return ConstIterator(tail, this); }
+DoublyLinkedList::Iterator DoublyLinkedList::End() { return Iterator(&dummy, this); }
+DoublyLinkedList::ConstIterator DoublyLinkedList::cEnd() const { return ConstIterator(&dummy, this); }
 
-// --- ノード探し ---
+// ----------------- //
+// --- ノード探し --- //
+// ----------------- //
 // 先頭からパスしたパラメーターを探す
 // 見つからない場合 End() を返す
 DoublyLinkedList::Iterator DoublyLinkedList::FindByScore(int score)
@@ -156,7 +177,7 @@ DoublyLinkedList::Iterator DoublyLinkedList::FindByScore(int score)
 	while (cur != &dummy)
 	{
 		if (cur->GetData().GetScore() == score)
-			return Iterator(cur);
+			return Iterator(cur, this);
 		cur = cur->GetNext();
 	}
 	return End();
@@ -167,7 +188,7 @@ DoublyLinkedList::ConstIterator DoublyLinkedList::FindByScore(int score) const
 	while (cur != &dummy)
 	{
 		if (cur->GetData().GetScore() == score)
-			return ConstIterator(cur);
+			return ConstIterator(cur, this);
 		cur = cur->GetNext();
 	}
 	return cEnd();;
@@ -179,7 +200,7 @@ DoublyLinkedList::Iterator DoublyLinkedList::FindByName(const std::string& name)
 	while (cur != &dummy)
 	{
 		if (cur->GetData().GetName() == name)
-			return Iterator(cur);
+			return Iterator(cur, this);
 		cur = cur->GetNext();
 	}
 	return End();
@@ -190,13 +211,15 @@ DoublyLinkedList::ConstIterator DoublyLinkedList::FindByName(const std::string& 
 	while (cur != &dummy)
 	{
 		if (cur->GetData().GetName() == name)
-			return ConstIterator(cur);
+			return ConstIterator(cur, this);
 		cur = cur->GetNext();
 	}
 	return cEnd();
 }
 
-// --- データ存在探し ---
+// -------------------- //
+// --- データ存在探し --- //
+// -------------------- //
 // パスしたパラメーターが持つノードの存在を探す
 // ノードのイテレータが欲しいなら上のFind関数を使ってください
 bool DoublyLinkedList::CheckForScore(int score)

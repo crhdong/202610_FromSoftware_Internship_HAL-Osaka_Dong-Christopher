@@ -32,52 +32,100 @@ public:
 		friend class DoublyLinkedList;
 	protected:
 		const Node* current;
+		const DoublyLinkedList* owner;
 	public:
-		ConstIterator(const Node* node)
-			: current(node) {
+		ConstIterator(const Node* node, const DoublyLinkedList* list)
+			: current(node), owner(list) {
 		}
 		ConstIterator(const ConstIterator& other)
-			: current(other.current) {
-		}
+			: current(other.current), owner(other.owner) { }
 		ConstIterator(const Iterator&) = delete;
 
-		ConstIterator& operator++() { current = current->GetNext(); return *this; }
-		ConstIterator& operator++(int) 
+		const DoublyLinkedList* GetOwner() { return owner; }
+
+		ConstIterator operator++() 
+		{ 
+			if (current != nullptr)
+			{
+				current = current->GetNext();
+			}
+			return *this; 
+		}
+		ConstIterator operator++(int) 
 		{ 
 			ConstIterator temp = *this; 
-			current = current->GetNext(); 
-			return temp; }
-		ConstIterator& operator--() { current = current->GetPrev(); return *this; }
-		ConstIterator& operator--(int) 
+			if (current != nullptr)
+			{
+				current = current->GetNext();
+			}
+			return temp; 
+		}
+		ConstIterator operator--() 
+		{
+			if (current != nullptr)
+			{
+				current = current->GetPrev();
+			}
+			return *this; 
+		}
+		ConstIterator operator--(int) 
 		{  
 			ConstIterator temp = *this;
-			current = current->GetPrev(); 
+			if (current != nullptr)
+			{
+				current = current->GetPrev();
+			}
 			return temp; 
 		}
 		const ScoreData& operator*() const { return current->GetData(); }
-		ConstIterator& operator=(const ConstIterator& other) { current = other.current; return *this; }
+		ConstIterator operator=(const ConstIterator& other) 
+		{ 
+			current = other.current; 
+			owner = other.owner;
+			return *this; }
 		const bool operator==(const ConstIterator& other) const { return current == other.current; }
 		const bool operator!=(const ConstIterator& other) const { return current != other.current; }
 	};
 	class Iterator : public ConstIterator
 	{
+	protected:
+		const DoublyLinkedList* owner;
 	public:
-		Iterator(Node* node)
-			: ConstIterator(node) {
-		}
+		Iterator(Node* node, const DoublyLinkedList* owner)
+			: ConstIterator(node, owner) { }
 		ScoreData& operator*() { return const_cast<Node*>(current)->GetData(); }
-		Iterator& operator++() { current = current->GetNext(); return *this; }
-		Iterator& operator++(int)
+		Iterator operator++() 
+		{
+			if (current != nullptr)
+			{
+				current = current->GetNext();
+			}
+			return *this; 
+		}
+		Iterator operator++(int)
 		{
 			Iterator temp = *this;
-			current = current->GetNext();
+			if (current != nullptr)
+			{
+				current = current->GetNext();
+			}
 			return temp;
 		}
-		Iterator& operator--() { current = current->GetPrev(); return *this; }
-		Iterator& operator--(int)
+		Iterator operator--() 
+		{
+			if (current != nullptr)
+			{
+				current = current->GetPrev();
+			}
+			return *this; 
+		}
+		Iterator operator--(int)
 		{
 			Iterator temp = *this;
-			current = current->GetPrev();
+			if (current != nullptr)
+			{
+				current = current->GetPrev();
+			}
 			return temp;
 		}
 	};
