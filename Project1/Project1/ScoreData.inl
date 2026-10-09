@@ -1,8 +1,8 @@
 #include "ScoreData.h"
 
-// -------------------- //
-// --- コンストラクタ --- //
-// -------------------- //
+/************************/
+/***** コンストラクタ *****/
+/************************/
 
 inline ScoreData::ScoreData()
 	: score(-1), name("") { }
@@ -10,9 +10,9 @@ inline ScoreData::ScoreData(int i, const std::string& s)
 	: score(i), name(s) {
 }
 
-// ------------- //
-// ---　取得　--- //
-// ------------- //
+/*****************/
+/*****　取得　*****/
+/*****************/
 
 inline int ScoreData::GetScore() const
 {
@@ -23,9 +23,9 @@ inline std::string ScoreData::GetName() const
 	return name;
 }
 
-// ------------- //
-// --- 上書き --- //
-// ------------- //
+/*****************/
+/***** 上書き *****/
+/*****************/
 
 inline void ScoreData::WriteScore(int newScore)
 {

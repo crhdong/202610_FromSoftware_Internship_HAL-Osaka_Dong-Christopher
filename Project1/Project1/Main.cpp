@@ -1,11 +1,11 @@
 #include "DoublyLinkedList.h"
 #include <fstream>
 
-// ----------------------- //
-// ---　ユーティリティー　--- //
-// ----------------------- //
+/***************************/
+/*****　ユーティリティー　*****/
+/***************************/
 
-// Find where the space between the score and name is.
+/// Find where the space between the score and name is.
 static int StrToInt(const std::string& s, size_t& endPos)
 {
 	int result = 0;
@@ -19,19 +19,19 @@ static int StrToInt(const std::string& s, size_t& endPos)
 	return result;
 }
 
-// ------------ //
-// --- Main --- //
-// ------------ //
+/****************/
+/***** Main *****/
+/****************/
 
 int main()
 {
-	// ファイルを開く
+	/// ファイルを開く
 	std::fstream file("Scores.txt");
 
 	DoublyLinkedList<ScoreData> scoreList;
 	std::string line;
 
-	// ファイルを線でリストにコピーする
+	/// ファイルを線でリストにコピーする
 	while (std::getline(file, line))
 	{
 		size_t endPos = 0;
@@ -39,7 +39,7 @@ int main()
 
 		if (endPos >= line.size() || line[endPos] != '\t') continue;
 
-		// スペースの位置 + 1 から
+		/// スペースの位置 + 1 から
 		std::string name = line.substr(endPos + 1);
 		
 		scoreList.Insert(scoreList.End(), ScoreData(score, name));
@@ -47,6 +47,7 @@ int main()
 
 	file.close();
 
+	/// スコアリストを印刷する
 	for (auto cur = scoreList.Begin(); cur != scoreList.End(); cur = ++cur)
 		printf("%d\t%s\n", (*cur).GetScore(), (*cur).GetName().c_str());
 

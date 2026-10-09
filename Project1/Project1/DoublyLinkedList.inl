@@ -7,16 +7,16 @@
 #define DLLCIt DoublyLinkedList<T>::ConstIterator
 #define DLLIt DoublyLinkedList<T>::Iterator
 
-// --------------- //
-// ---　ノード　--- //
-// --------------- //
+/******************/
+/***** ノード　*****/
+/******************/
 
-// コンストラクタ
+/// コンストラクタ
 template <typename T>
 DoublyLinkedList<T>::Node::Node(const T& entryData)
 	: data(entryData), prev(nullptr), next(nullptr) { }
 
-// データ取得
+/// --- データ取得 ---
 
 TEMPLATE
 T& DLLN::GetData() { return data; }
@@ -24,7 +24,7 @@ T& DLLN::GetData() { return data; }
 TEMPLATE
 const T& DLLN::GetData() const { return data; }
 
-// ノード取得
+/// --- ノード取得 ---
 
 TEMPLATE
 typename DLLN* DLLN::GetPrev() { return prev; }
@@ -38,7 +38,7 @@ typename DLLN* DLLN::GetNext() { return next; }
 TEMPLATE
 const typename DLLN* DLLN::GetNext() const { return next; }
 
-// ノード上書き
+/// ノード上書き
 
 TEMPLATE
 void DLLN::SetPrev(Node* node) { prev = node; }
@@ -46,11 +46,11 @@ void DLLN::SetPrev(Node* node) { prev = node; }
 TEMPLATE
 void DLLN::SetNext(Node* node) { next = node; }
 
-// ------------------------ //
-// --- コンストイテレータ　--- // 
-// ------------------------ //
+/****************************/
+/***** コンストイテレータ　*****/ 
+/****************************/
 
-// --- コンストラクタ ---
+/// --- コンストラクタ ---
 
 template <typename T>
 DoublyLinkedList<T>::ConstIterator::ConstIterator(const DLL::Node* node, const DoublyLinkedList<T>* list)
@@ -60,10 +60,10 @@ template <typename T>
 DoublyLinkedList<T>::ConstIterator::ConstIterator(const ConstIterator& other)
 	: current(other.current), owner(other.owner) { }
 
-//TEMPLATE
-//DLLCIt::ConstIterator(const Iterator&) = delete;
+///TEMPLATE
+///DLLCIt::ConstIterator(const Iterator&) = delete;
 
-// --- オーナー ---
+/// --- オーナー ---
 
 TEMPLATE
 const typename DLL* DLLCIt::GetOwner() const
@@ -71,7 +71,7 @@ const typename DLL* DLLCIt::GetOwner() const
 	return owner;
 }
 
-// --- ノードoperator ---
+/// --- ノードoperator ---
 
 TEMPLATE
 typename DLLCIt DLLCIt::operator++()
@@ -141,17 +141,17 @@ bool DLLCIt::operator!=(const ConstIterator& other) const
 	return current != other.current;
 }
 
-// ------------------ //
-// ---　イテレータ　--- //
-// ------------------ //
+/**********************/
+/*****　イテレータ　*****/
+/**********************/
 
-// コンストラクタ
+/// コンストラクタ
 
 template <typename T>
 DoublyLinkedList<T>::Iterator::Iterator(Node* node, const DoublyLinkedList<T>* list)
 	: ConstIterator(node, list) { }
 
-// ノードoperator
+/// ノードoperator
 
 TEMPLATE
 T& DLLIt::operator*()
@@ -201,11 +201,11 @@ typename DLLIt DLLIt::operator--(int)
 	return temp;
 }
 
-// ------------------------ //
-// --- DoublyLinkedList --- //
-// ------------------------ //
+/****************************/
+/***** DoublyLinkedList *****/
+/****************************/
 
-// --- コンストラクタ ---
+/// --- コンストラクタ ---
 template <typename T>
 DoublyLinkedList<T>::DoublyLinkedList()
 	: dummy(T{}), head(&dummy), tail(&dummy), count(0) 
@@ -227,9 +227,9 @@ DoublyLinkedList<T>::~DoublyLinkedList()
 }
 
 
-// --- プライベート用関数 ---
-// 呼びたいならInsert()またはDelete()を呼んでください
-// もしposition == nullptrの場合、return
+/// --- プライベート用関数 ---
+/// 呼びたいならInsert()またはDelete()を呼んでください
+/// もしposition == nullptrの場合、return
 TEMPLATE
 void DLL::InsertAt(Node* position, const T& data)
 {
@@ -313,21 +313,21 @@ void DLL::DeleteAt(Node* position)
 	count--;
 }
 
-// --- ノード数 ---
-// ノードの数を返す
-// dummyのノードは計算しない
+/// --- ノード数 ---
+/// ノードの数を返す
+/// dummyのノードは計算しない
 TEMPLATE
 int DLL::GetSize() const
 {
 	return count;
 }
 
-// --- ノード挿入と解除 ---
-// イテレータ一位の前に新しいノードを挿入する
-// count++
-// nullptrとdummyが渡した場合、新しい末尾になる
-// 別リストのイテレータで追加できない（return）
-// TRUE = 成功, FALSE = 失敗
+/// --- ノード挿入と解除 ---
+/// イテレータ一位の前に新しいノードを挿入する
+/// count++
+/// nullptrとdummyが渡した場合、新しい末尾になる
+/// 別リストのイテレータで追加できない（return）
+/// TRUE = 成功, FALSE = 失敗
 TEMPLATE
 bool DLL::Insert(ConstIterator position, const T& data)
 {
@@ -345,11 +345,11 @@ bool DLL::Insert(Iterator position, const T& data)
 	return true;
 }
 
-// イテレータ一位でノードを解除する
-// count--
-// nullptrとdummyが渡した場合、直ぐreturn
-// 別リストのイテレータで解除できない（return）
-// TRUE = 成功, FALSE = 失敗
+/// イテレータ一位でノードを解除する
+/// count--
+/// nullptrとdummyが渡した場合、直ぐreturn
+/// 別リストのイテレータで解除できない（return）
+/// TRUE = 成功, FALSE = 失敗
 TEMPLATE
 bool DLL::Delete(ConstIterator position)
 {
@@ -369,11 +369,11 @@ bool DLL::Delete(Iterator position)
 	return true;
 }
 
-// --- イテレータ・コンストイテレータ ---
+/// --- イテレータ・コンストイテレータ ---
 
-// Beginは先頭のイテレータを返す
-// Last は末尾のイテレータを返す
-// End  は末尾 + 1 のイテレータを返す
+/// Beginは先頭のイテレータを返す
+/// Last は末尾のイテレータを返す
+/// End  は末尾 + 1 のイテレータを返す
 TEMPLATE
 typename DLLIt DLL::Begin() { return Iterator(head, this); }
 TEMPLATE
@@ -387,9 +387,9 @@ typename DLLIt DLL::End() { return Iterator(&dummy, this); }
 TEMPLATE
 typename DLLCIt DLL::cEnd() const { return ConstIterator(&dummy, this); }
 
-// --- ノード探し ---
-// 先頭からパスしたパラメーターを探す
-// 見つからない場合 End() を返す
+/// --- ノード探し ---
+/// 先頭からパスしたパラメーターを探す
+/// 見つからない場合 End() を返す
 TEMPLATE
 typename DLLIt DLL::FindByScore(int score)
 {
@@ -440,9 +440,9 @@ typename DLLCIt DLL::FindByName(const std::string& name) const
 	return cEnd();
 }
 
-// --- データ存在探し ---
-// パスしたパラメーターが持つノードの存在を探す
-// ノードのイテレータが欲しいなら上のFind関数を使ってください
+/// --- データ存在探し ---
+/// パスしたパラメーターが持つノードの存在を探す
+/// ノードのイテレータが欲しいなら上のFind関数を使ってください
 TEMPLATE
 bool DLL::CheckForScore(int score)
 {
