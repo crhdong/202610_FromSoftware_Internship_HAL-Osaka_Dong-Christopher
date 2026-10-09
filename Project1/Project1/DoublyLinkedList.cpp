@@ -1,6 +1,5 @@
 #include "DoublyLinkedList.h"
 
-
 // -------------------- //
 // --- コンストラクタ --- //
 // -------------------- //
@@ -128,29 +127,41 @@ int DoublyLinkedList::GetSize() const
 // count++
 // nullptrとdummyが渡した場合、新しい末尾になる
 // 不良データが追加できない
-void DoublyLinkedList::Insert(ConstIterator position, const ScoreData& data)
+// TRUE = 成功, FALSE = 失敗
+bool DoublyLinkedList::Insert(ConstIterator position, const ScoreData& data)
 {
-	if (position.GetOwner() != this) return;
+	if (position.current == nullptr) return false;
+	if (position.GetOwner() != this) return false;
 	InsertAt(const_cast<Node*>(position.current), data);
+	return true;
 }
-void DoublyLinkedList::Insert(Iterator position, const ScoreData& data) 
+bool DoublyLinkedList::Insert(Iterator position, const ScoreData& data)
 { 
-	if (position.GetOwner() != this) return;
+	if (position.current == nullptr) return false;
+	if (position.GetOwner() != this) return false;
 	InsertAt(const_cast<Node*>(position.current), data);
+	return true;
 }
 
 // イテレータ一位でノードを解除する
 // count--
 // nullptrとdummyが渡した場合、直ぐreturn
-void DoublyLinkedList::Delete(ConstIterator position)
+// TRUE = 成功, FALSE = 失敗
+bool DoublyLinkedList::Delete(ConstIterator position)
 {
-	if (position.GetOwner() != this) return;
+	if (position.current == nullptr) return false;
+	if (position.GetOwner() != this) return false;
+	if (position.current == &dummy) return false;
 	DeleteAt(const_cast<Node*>(position.current));
+	return true;
 }
-void DoublyLinkedList::Delete(Iterator position)
+bool DoublyLinkedList::Delete(Iterator position)
 {
-	if (position.GetOwner() != this) return;
+	if (position.current == nullptr) return false;
+	if (position.GetOwner() != this) return false;
+	if (position.current == &dummy) return false;
 	DeleteAt(const_cast<Node*>(position.current));
+	return true;
 }
 
 // ---------------------------------- //

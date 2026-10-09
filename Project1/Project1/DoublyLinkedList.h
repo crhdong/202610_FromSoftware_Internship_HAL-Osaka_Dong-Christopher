@@ -142,12 +142,12 @@ public:
 	int GetSize() const;
 
 	// ë}ì¸
-	void Insert(Iterator position, const ScoreData& data);
-	void Insert(ConstIterator position, const ScoreData& data);
+	bool Insert(Iterator position, const ScoreData& data);
+	bool Insert(ConstIterator position, const ScoreData& data);
 
 	// âèú
-	void Delete(Iterator position);
-	void Delete(ConstIterator position);
+	bool Delete(Iterator position);
+	bool Delete(ConstIterator position);
 
 	// ç≈èâ
 	Iterator Begin();
