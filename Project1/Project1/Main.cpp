@@ -1,7 +1,9 @@
 #include "DoublyLinkedList.h"
 #include <fstream>
 
-// --- Helpers ---
+// ----------------------- //
+// ---　ユーティリティー　--- //
+// ----------------------- //
 
 // Find where the space between the score and name is.
 static int StrToInt(const std::string& s, size_t& endPos)
@@ -17,7 +19,9 @@ static int StrToInt(const std::string& s, size_t& endPos)
 	return result;
 }
 
-// --- Main ---
+// ------------ //
+// --- Main --- //
+// ------------ //
 
 int main()
 {
