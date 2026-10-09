@@ -74,12 +74,12 @@ public:
 	int GetSize() const;
 
 	// ë}ì¸
-	void Insert(Iterator position, const T& data);
-	void Insert(ConstIterator position, const T& data);
+	bool Insert(Iterator position, const T& data);
+	bool Insert(ConstIterator position, const T& data);
 
 	// âèú
-	void Delete(Iterator position);
-	void Delete(ConstIterator position);
+	bool Delete(Iterator position);
+	bool Delete(ConstIterator position);
 
 	// ç≈èâ
 	Iterator Begin();

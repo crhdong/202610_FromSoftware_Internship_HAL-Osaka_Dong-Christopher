@@ -4,17 +4,16 @@
 
 namespace ListTests
 {
-	// ----------------------- //
-	// ---　挿入・解除テスト　--- //
-	// ----------------------- //
+	// ------------------------------- //
+	// --- リストデータ数の取得テスト　--- //
+	// ------------------------------- //
 
 	// 空きリストサイズ
 	// EXPECT 0
 	TEST(AssignmentTest, 0_EmptyList)
 	{
 		DoublyLinkedList<ScoreData> list;
-		int count = list.GetSize();
-		EXPECT_EQ(count, 0);
+		EXPECT_EQ(list.GetSize(), 0);
 	}
 
 	// 末尾で挿入
@@ -97,10 +96,13 @@ namespace ListTests
 	// EXPECT TRUE
 	TEST(InsertionTest, 9_EmptyInsertion)
 	{
-		DoublyLinkedList<ScoreData> list;
+		DoublyLinkedList<ScoreData> list1;
+		DoublyLinkedList<ScoreData> list2;
+		DoublyLinkedList<ScoreData> list3;
 		ScoreData data1(1, "pie");
-		list.Insert(list.End(), data1);
-		EXPECT_TRUE(list.GetSize() == 1);
+		EXPECT_TRUE(list1.Insert(list1.Begin(), data1));
+		EXPECT_TRUE(list2.Insert(list2.Last(), data1));
+		EXPECT_TRUE(list3.Insert(list3.End(), data1));
 	}
 
 	// ノードがあるリストに先頭で挿入
@@ -111,9 +113,9 @@ namespace ListTests
 		DoublyLinkedList<ScoreData> list;
 		ScoreData data1(1, "pie");
 		ScoreData data2(2, "cake");
-		list.Insert(list.Begin(), data1);
-		list.Insert(list.Begin(), data2);
-		EXPECT_TRUE((*list.cBegin()).GetName() == "cake");
+		EXPECT_TRUE(list.Insert(list.Begin(), data1));
+		EXPECT_TRUE(list.Insert(list.Begin(), data2));
+		EXPECT_EQ((*list.Begin()).GetName(), data2.GetName());
 	}
 
 	// ノードがあるリストに末尾で挿入
@@ -124,9 +126,9 @@ namespace ListTests
 		DoublyLinkedList<ScoreData> list;
 		ScoreData data1(1, "pie");
 		ScoreData data2(2, "cake");
-		list.Insert(list.End(), data1);
-		list.Insert(list.End(), data2);
-		EXPECT_TRUE((*list.cBegin()).GetName() == "pie");
+		EXPECT_TRUE(list.Insert(list.End(), data1));
+		EXPECT_TRUE(list.Insert(list.End(), data2));
+		EXPECT_EQ((*list.Begin()).GetName(), data1.GetName());
 	}
 
 	// ノードがあるリストの中で挿入
@@ -139,10 +141,14 @@ namespace ListTests
 		ScoreData data3(3, "macaron");
 		list.Insert(list.Begin(), data1);
 		list.Insert(list.End(), data2);
-		list.Insert(list.FindByName("cake"), data3);
-		DoublyLinkedList<ScoreData>::Iterator it = list.FindByName("macaron");
-		++it;
-		EXPECT_TRUE((*it).GetName() == "cake");
+		list.Insert(list.Last(), data3);
+		DoublyLinkedList<ScoreData>::Iterator it1 = list.FindByName("macaron");
+		DoublyLinkedList<ScoreData>::Iterator it2 = it1;
+		EXPECT_EQ((*it1).GetName(), data3.GetName());
+		++it1;
+		--it2;
+		EXPECT_EQ((*it1).GetName(), data2.GetName());
+		EXPECT_EQ((*it2).GetName(), data1.GetName());
 	}
 
 	// コンストイテレータで挿入
@@ -152,9 +158,17 @@ namespace ListTests
 		DoublyLinkedList<ScoreData> list;
 		ScoreData data1(1, "pie");
 		ScoreData data2(2, "cake");
-		list.Insert(list.cBegin(), data1);
-		list.Insert(list.cBegin(), data2);
-		EXPECT_TRUE((*list.cBegin()).GetName() == "cake");
+		ScoreData data3(3, "macaron");
+		EXPECT_TRUE(list.Insert(list.cBegin(), data1));
+		EXPECT_TRUE(list.Insert(list.cEnd(), data2));
+		EXPECT_TRUE(list.Insert(list.cLast(), data3));
+		DoublyLinkedList<ScoreData>::Iterator it1 = list.FindByName("macaron");
+		DoublyLinkedList<ScoreData>::Iterator it2 = it1;
+		EXPECT_EQ((*it1).GetName(), "macaron");
+		++it1;
+		--it2;
+		EXPECT_EQ((*it1).GetName(), "cake");
+		EXPECT_EQ((*it2).GetName(), "pie");
 	}
 
 	// 不正イテレータで挿入
@@ -164,8 +178,8 @@ namespace ListTests
 		DoublyLinkedList<ScoreData> list;
 		DoublyLinkedList<ScoreData> otherlist;
 		ScoreData data1(1, "pie");
-		list.Insert(otherlist.Begin(), data1);
-		EXPECT_FALSE(list.GetSize() != 0);
+		EXPECT_FALSE(list.Insert(otherlist.Begin(), data1));
+		EXPECT_EQ(list.GetSize(), 0);
 	}
 
 	// ------------------ //
@@ -177,9 +191,9 @@ namespace ListTests
 	TEST(DeletionTest, 16_EmptyDeletion)
 	{
 		DoublyLinkedList<ScoreData> list;
-		list.Delete(list.Begin());
-		list.Delete(list.End());
-		EXPECT_FALSE(list.GetSize() != 0);
+		EXPECT_FALSE(list.Delete(list.Begin()));
+		EXPECT_FALSE(list.Delete(list.Last()));
+		EXPECT_FALSE(list.Delete(list.End()));
 	}
 
 	// ノード二つ以上リストの先頭を解除
@@ -190,10 +204,9 @@ namespace ListTests
 		DoublyLinkedList<ScoreData> list;
 		ScoreData data1(1, "pie");
 		ScoreData data2(2, "cake");
-		list.Insert(list.Begin(), data1);
-		list.Insert(list.Begin(), data2);
-		list.Delete(list.Begin());
-		EXPECT_TRUE((*list.cBegin()).GetName() == "pie");
+		EXPECT_TRUE(list.Insert(list.Begin(), data1));
+		EXPECT_TRUE(list.Insert(list.Begin(), data2));
+		EXPECT_TRUE(list.Delete(list.Begin()));
 	}
 
 	// ノード二つ以上リストの末尾を解除
@@ -203,9 +216,10 @@ namespace ListTests
 	{
 		DoublyLinkedList<ScoreData> list;
 		ScoreData data1(1, "pie");
-		list.Insert(list.Begin(), data1);
-		list.Delete(list.Last());
-		EXPECT_FALSE(list.GetSize() != 0);
+		ScoreData data2(2, "cake");
+		EXPECT_TRUE(list.Insert(list.Begin(), data1));
+		EXPECT_TRUE(list.Insert(list.Begin(), data2));
+		EXPECT_FALSE(list.Delete(list.End()));
 	}
 
 	// ノードが三つ以上リストの真中を解除
@@ -217,14 +231,16 @@ namespace ListTests
 		ScoreData data1(1, "pie");
 		ScoreData data2(2, "cake");
 		ScoreData data3(3, "macaron");
-		list.Insert(list.Begin(), data1);
-		list.Insert(list.Begin(), data2);
-		list.Insert(list.Begin(), data3);
-		list.Delete(list.FindByName("pie"));
-		EXPECT_TRUE((*list.cLast()).GetName() == "cake");
-		EXPECT_TRUE(list.GetSize() == 2);
+		EXPECT_TRUE(list.Insert(list.Begin(), data1));
+		EXPECT_TRUE(list.Insert(list.Begin(), data2));
+		EXPECT_TRUE(list.Insert(list.Begin(), data3));
+		int size = list.GetSize();
+		EXPECT_TRUE(list.Delete(list.FindByName("cake")));
+		EXPECT_EQ((*list.Last()).GetName(), data1.GetName());
+		EXPECT_EQ((*list.Begin()).GetName(), data3.GetName());
+		EXPECT_EQ(list.GetSize(), --size);
 	}
-
+	
 	// コンストイテレータで解除
 	// EXPECT TRUE
 	TEST(DeletionTest, 20_ConstIteratorDeletion)
@@ -233,23 +249,26 @@ namespace ListTests
 		ScoreData data1(1, "pie");
 		ScoreData data2(2, "cake");
 		ScoreData data3(3, "macaron");
-		list.Insert(list.Begin(), data1);
-		list.Insert(list.Begin(), data2);
-		list.Insert(list.Begin(), data3);
-		list.Delete(list.cBegin());
-		list.Delete(list.cBegin());
-		EXPECT_TRUE((*list.cBegin()).GetName() == "pie");
+		EXPECT_TRUE(list.Insert(list.Begin(), data1));
+		EXPECT_TRUE(list.Insert(list.Begin(), data2));
+		EXPECT_TRUE(list.Insert(list.Begin(), data3));
+		int size = list.GetSize();
+		EXPECT_TRUE(list.Delete(--list.cLast()));
+		EXPECT_EQ((*list.Last()).GetName(), data1.GetName());
+		EXPECT_EQ((*list.Begin()).GetName(), data3.GetName());
+		EXPECT_EQ(list.GetSize(), --size);
 	}
 
-	// 不正なイテレータ（End）で解除
+	// 不正なイテレータで解除
 	// EXPECT FALSE
 	TEST(DeletionTest, 21_ImproperIteratorDeletion)
 	{
 		DoublyLinkedList<ScoreData> list;
 		ScoreData data1(1, "pie");
+		DoublyLinkedList<ScoreData>::Iterator it(nullptr, nullptr);
 		list.Insert(list.Begin(), data1);
-		list.Delete(list.cEnd());
-		EXPECT_FALSE(!list.CheckForName("pie"));
+		EXPECT_FALSE(list.Delete(list.cEnd()));
+		EXPECT_FALSE(list.Delete(it));
 	}
 
 	// ---------------------- //

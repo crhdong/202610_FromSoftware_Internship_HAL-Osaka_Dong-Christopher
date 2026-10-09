@@ -327,34 +327,46 @@ int DLL::GetSize() const
 // count++
 // nullptrとdummyが渡した場合、新しい末尾になる
 // 別リストのイテレータで追加できない（return）
+// TRUE = 成功, FALSE = 失敗
 TEMPLATE
-void DLL::Insert(ConstIterator position, const T& data)
+bool DLL::Insert(ConstIterator position, const T& data)
 {
-	if (position.GetOwner() != this) return;
+	if (position.current == nullptr) return false;
+	if (position.GetOwner() != this) return false;
 	InsertAt(const_cast<Node*>(position.current), data);
+	return true;
 }
 TEMPLATE
-void DLL::Insert(Iterator position, const T& data)
+bool DLL::Insert(Iterator position, const T& data)
 {
-	if (position.GetOwner() != this) return;
+	if (position.current == nullptr) return false;
+	if (position.GetOwner() != this) return false;
 	InsertAt(const_cast<Node*>(position.current), data);
+	return true;
 }
 
 // イテレータ一位でノードを解除する
 // count--
 // nullptrとdummyが渡した場合、直ぐreturn
 // 別リストのイテレータで解除できない（return）
+// TRUE = 成功, FALSE = 失敗
 TEMPLATE
-void DLL::Delete(ConstIterator position)
+bool DLL::Delete(ConstIterator position)
 {
-	if (position.GetOwner() != this) return;
+	if (position.current == nullptr) return false;
+	if (position.GetOwner() != this) return false;
+	if (position.current == &dummy) return false;
 	DeleteAt(const_cast<Node*>(position.current));
+	return true;
 }
 TEMPLATE
-void DLL::Delete(Iterator position)
+bool DLL::Delete(Iterator position)
 {
-	if (position.GetOwner() != this) return;
+	if (position.current == nullptr) return false;
+	if (position.GetOwner() != this) return false;
+	if (position.current == &dummy) return false;
 	DeleteAt(const_cast<Node*>(position.current));
+	return true;
 }
 
 // --- イテレータ・コンストイテレータ ---
