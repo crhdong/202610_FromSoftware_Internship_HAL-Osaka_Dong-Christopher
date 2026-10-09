@@ -117,8 +117,8 @@ namespace ListTests
 		DoublyLinkedList list1;
 		ScoreData data1(1, "pie");
 		ScoreData data2(2, "cake");
-		list1.Insert(list1.Begin(), data1);
-		list1.Insert(list1.Begin(), data2);
+		EXPECT_TRUE(list1.Insert(list1.Begin(), data1));
+		EXPECT_TRUE(list1.Insert(list1.Begin(), data2));
 		EXPECT_EQ((*list1.Begin()).GetName(), data2.GetName());
 	}
 
@@ -130,8 +130,8 @@ namespace ListTests
 		DoublyLinkedList list1;
 		ScoreData data1(1, "pie");
 		ScoreData data2(2, "cake");
-		list1.Insert(list1.End(), data1);
-		list1.Insert(list1.End(), data2);
+		EXPECT_TRUE(list1.Insert(list1.End(), data1));
+		EXPECT_TRUE(list1.Insert(list1.End(), data2));
 		EXPECT_EQ((*list1.cBegin()).GetName(), data1.GetName());
 	}
 
@@ -143,9 +143,9 @@ namespace ListTests
 		ScoreData data1(1, "pie");
 		ScoreData data2(2, "cake");
 		ScoreData data3(3, "macaron");
-		list.Insert(list.Begin(), data1);
-		list.Insert(list.End(), data2);
-		list.Insert(list.Last(), data3);
+		EXPECT_TRUE(list.Insert(list.cBegin(), data1));
+		EXPECT_TRUE(list.Insert(list.cEnd(), data2));
+		EXPECT_TRUE(list.Insert(list.cLast(), data3));
 		DoublyLinkedList::Iterator it1 = list.FindByName("macaron");
 		DoublyLinkedList::Iterator it2 = it1;
 		EXPECT_EQ((*it1).GetName(), data3.GetName());
@@ -753,5 +753,4 @@ namespace ListTests
 		EXPECT_EQ((*cit).GetScore(), data2.GetScore());
 		EXPECT_EQ((*cit).GetName(), data2.GetName());
 	}
-
 }
